@@ -26,7 +26,7 @@ export default function Home() {
           <div className="portfolio-item-heading">
             <span>01</span>
             <div>
-              <p>Unreal Engine Plugin</p>
+              <p>언리얼 엔진 플러그인</p>
               <h3>Ground Interaction</h3>
             </div>
           </div>
