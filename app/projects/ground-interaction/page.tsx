@@ -33,71 +33,131 @@ export default function GroundInteractionCaseStudy() {
 
       <div className="detail-body wrap">
         <section className="detail-section">
-          <h2>기술적 배경</h2>
-          <p>God of War의 식생 인터렉션 발표에서는 Render Target의 한 채널에 충돌 깊이를 기록하고, 다른 채널의 값을 시간에 따라 위로 이동시켜 폴리지 흔들림을 만드는 방식을 소개했습니다.</p>
-          <div className="detail-media two"><img src={detailImage('image2.png')} alt="God of War 식생 인터렉션 발표 자료" /><img src={detailImage('image3.jpg')} alt="Niagara Simulation Stage 기반 식생 인터렉션 자료" /></div>
+          <h2>개요</h2>
+          <p>캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.</p>
+          <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다.</p>
+          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.09ms 의 좋은 성능을 유지합니다.</p>
+          <p>Water Interaction은 0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성합니다.</p>
+        </section>
 
-          <h3>Niagara Simulation Stage 기반 접근의 비용</h3>
-          <p>충돌체 배열을 Simulation Stage에 전달하는 방식은 Grid2D의 모든 셀에서 배열을 반복해서 검사합니다. 충돌체 수가 늘어날수록 연산량이 증가하므로 다중 캐릭터 환경에서 비용이 커질 수 있습니다.</p>
+        <section className="detail-section">
+          <h2>기술적 배경</h2>
+
+          <h3>갓 오브 워(2019)의 식생 인터렉션 발표</h3>
+          <p>렌더 타겟의 한 채널에 콜리전의 Depth를 기록하고, 나머지 채널에서 시간에 따라 해당 Depth 값을 위로 Fade하여 값의 변화로 폴리지의 흔들림을 구현했다는 아이디어입니다.</p>
+          <div className="detail-media one"><img src={detailImage('image2.png')} alt="갓 오브 워 식생 인터렉션 발표 자료" /></div>
+
+          <h3>언리얼 Niagara Simulation Stage 기반 접근</h3>
+          <p>콜리전 데이터 배열을 Niagara Simulation Stage에 기록하여 Render Target을 만드는 구현 방법입니다. 하지만 이 구현 방법에는 성능상 우려되는 지점이 있었습니다.</p>
+          <p>참고 발표: In-Depth Look at a Unique Approach to Foliage Interaction</p>
+          <div className="detail-media one"><img src={detailImage('image3.jpg')} alt="Niagara Simulation Stage 기반 식생 인터렉션 자료" /></div>
+
+          <h3>Niagara Simulation Stage의 다중 캐릭터 환경 성능</h3>
+          <p>Simulation Stage에 충돌체 배열을 전달하고, 배열의 각 원소를 순회하며 일정 속도 이상의 충돌체 깊이 정보를 Grid2D에 기록하는 방식입니다.</p>
+          <p>Grid2D의 모든 셀에서 배열 전체를 반복 검사하므로 충돌체 수가 증가할수록 연산량이 선형적으로 증가합니다. 연산 복잡도는 O(C × N²)이며, C는 충돌체 개수, N은 Grid2D 해상도입니다.</p>
           <div className="detail-media two"><img src={detailImage('image4.png')} alt="충돌체 배열" /><img src={detailImage('image5.png')} alt="Grid2D 반복 구조" /></div>
 
-          <h3>Bottom-up Depth Capture</h3>
-          <p>Compute Shader에서 모든 충돌체를 반복하는 대신 아래에서 위를 향해 Depth를 캡처했습니다. Unreal Engine Water 플러그인의 WaterInfoRendering에서 Custom Render Pass를 추가하는 방식을 참고했습니다.</p>
+          <h3>성능 개선 방안 — Bottom-up Depth Capture</h3>
+          <p>Compute Shader나 Niagara Simulation Stage에서 모든 충돌체를 반복하기보다 Bottom-up 방향으로 Depth를 캡쳐하는 편이 낫다고 판단했습니다. 이를 통해 충돌체 수와 Render Target 해상도에 따른 반복 연산을 줄일 수 있습니다.</p>
+          <p>Unreal Engine Water 플러그인을 분석하던 중 WaterInfoRendering에서 Custom Depth Pass를 추가하는 방식을 찾았고, 해당 코드를 참고하여 구현했습니다.</p>
           <div className="detail-media one"><img src={detailImage('image6.png')} alt="Bottom-up Depth Capture 구현 코드" /></div>
         </section>
 
         <section className="detail-section">
           <h2>Ground Interaction</h2>
+
           <h3>작업 내역</h3>
-          <div className="detail-media three"><img src={detailImage('image7.png')} alt="Ground Interaction 작업 내역 1" /><img src={detailImage('image8.png')} alt="Ground Interaction 작업 내역 2" /><img src={detailImage('image9.png')} alt="Ground Interaction 작업 내역 3" /><img src={detailImage('image10.png')} alt="Ground Interaction 작업 내역 4" /><img src={detailImage('image11.png')} alt="Ground Interaction 작업 내역 5" /><img src={detailImage('image12.png')} alt="Ground Interaction 작업 내역 6" /></div>
+          <div className="detail-media two"><img src={detailImage('image7.png')} alt="Ground Interaction 작업 내역 1" /><img src={detailImage('image8.png')} alt="Ground Interaction 작업 내역 2" /><img src={detailImage('image9.png')} alt="Ground Interaction 작업 내역 3" /><img src={detailImage('image10.png')} alt="Ground Interaction 작업 내역 4" /><img src={detailImage('image11.png')} alt="Ground Interaction 작업 내역 5" /><img src={detailImage('image12.png')} alt="Ground Interaction 작업 내역 6" /></div>
 
           <h3>컴포넌트 구성</h3>
-          <p>Component와 Render Proxy를 분리했습니다. Component는 카메라를 따라 이동하고, Render Target의 World Center는 한 texel이 나타내는 월드 크기에 맞춰 Snap하여 이동 시 흔들림을 줄였습니다.</p>
-          <div className="detail-media three"><img src={detailImage('image13.png')} alt="Ground Interaction 컴포넌트 코드" /><img src={detailImage('image14.png')} alt="Ground Interaction Render Proxy 코드" /><img src={detailImage('image15.png')} alt="Center Snap 코드" /></div>
-          <p>Depth Capture용 Static Mesh Primitive Component를 게임 스레드에서 순회해 Show Only Primitive로 전달합니다. Material Parameter Collection도 게임 스레드에서 설정합니다.</p>
+          <p>컴포넌트-프록시 구조를 사용했습니다. 인터렉션 특성상 플레이어 뷰 주변의 Render Target만 생성하여 복수의 컴포넌트를 생성할 일은 없지만, 게임 스레드와 렌더 스레드의 관계를 명확하게 하기 위해 이 구조로 구현했습니다.</p>
+          <p>컴포넌트는 카메라 위치를 따라 매 프레임 이동합니다. 프록시에 설정되는 Render Target Center World 위치는 텍셀 하나가 가리키는 월드 크기만큼 Snap되도록 구현했습니다. Shadow Map에서 그림자 떨림을 방지할 때도 일반적으로 사용하는 방식입니다.</p>
+          <div className="detail-media two"><img src={detailImage('image13.png')} alt="Ground Interaction 컴포넌트 코드" /><img src={detailImage('image14.png')} alt="Ground Interaction Render Proxy 코드" /><img src={detailImage('image15.png')} alt="Center Snap 코드" /></div>
+
+          <h3>컴포넌트 구성 — 캡쳐 패스와 MPC</h3>
+          <p>캡쳐 패스 추가는 게임 스레드에서 이루어집니다. Depth Capture용 Static Mesh Primitive Component를 순회해 Show Only Primitive로 설정하는 작업은 게임 스레드에서 수행하는 것이 적절하다고 판단했습니다. 참고한 Water 플러그인도 동일하게 게임 스레드에서 캡쳐 함수를 호출합니다.</p>
+          <p>Material에서 Render Target을 사용하는 데 필요한 Material Parameter Collection은 UObject이므로 게임 스레드에서 설정합니다.</p>
           <div className="detail-media two"><img src={detailImage('image16.png')} alt="Depth Capture 패스 호출 코드" /><img src={detailImage('image17.png')} alt="Material Parameter Collection 설정 코드" /></div>
 
-          <h3>Render Proxy</h3>
-          <p>Scrolling, Fade, Update Depth 순서로 패스를 실행합니다. World Center가 이동했을 때만 Scrolling을 수행하고, Fade는 설정된 주기에 맞춰 갱신합니다. 마지막으로 Depth Capture 결과를 Render Target에 반영합니다.</p>
+          <h3>렌더 프록시 구현</h3>
+          <p>렌더 프록시의 패스는 세 가지 순서로 실행됩니다.</p>
+          <p>Scrolling Pass는 현재 프레임의 World Center와 이전 프레임의 World Center가 다를 때만 실행합니다. Fade는 Developer Settings에서 설정된 주기로 실행하며 Depth 결과값을 설정된 속도로 위로 Fade합니다. Update Depth는 Depth Capture 결과로 Render Target을 업데이트합니다.</p>
           <div className="detail-media one"><img src={detailImage('image18.png')} alt="Ground Interaction Render Proxy 패스 코드" /></div>
 
-          <h3>캡처 전용 메시 컴포넌트</h3>
-          <p>기본적으로 Character의 Physics Asset 충돌체를 사용합니다. 별도 Physics Asset을 지정하면 Ground Interaction 전용 프록시 메시를 생성합니다.</p>
+          <h3>캡쳐 전용 메시 컴포넌트 생성</h3>
+          <p>기본값은 Unreal Character 클래스의 Physics Asset Collision을 그대로 사용합니다. Override를 지정하면 Ground Interaction용 Physics Asset을 통해 Mesh Component가 생성됩니다.</p>
+          <p>Physics Asset은 Codex와 Unreal MCP를 통해 자동 생성했습니다. MCP 호출 시 맥락 파악 시간과 토큰 사용량을 줄이기 위해 MCP가 읽는 용도의 안내 문서를 저장하여 사용했습니다.</p>
           <div className="detail-media two"><img src={detailImage('image19.png')} alt="프록시 메시 생성 코드" /><img src={detailImage('image20.png')} alt="Physics Asset 프록시 메시" /><img src={detailImage('image21.png')} alt="Physics Asset 자동 생성 코드" /><img src={detailImage('image22.png')} alt="Physics Asset 자동 생성 결과" /></div>
 
-          <h3>Material</h3>
-          <p>Material Function이 Position Offset을 반환합니다. 뿌리 부분의 흔들림 감쇠는 Pixel World Position과 Instance Bound를 이용합니다. Depth Render Target은 인스턴스 피벗 위치 또는 버텍스 위치에서 샘플링할 수 있습니다.</p>
+          <h3>머티리얼</h3>
+          <p>플러그인의 Material Function에서 Position Offset을 반환하도록 만들었습니다. 풀의 뿌리 부분에서 흔들림의 세기가 약해지는 기능은 흔히 사용하는 Vertex Color 방식 대신 Pixel World Position과 Instance Bound를 사용했습니다. Vertex Color를 사용해도 문제는 없습니다.</p>
+          <p>Depth Render Target을 샘플링하는 위치는 Pixel World Position과 풀 인스턴스 중심 위치를 모두 사용할 수 있습니다. 갓 오브 워의 풀은 전체적으로 흔들리는 것으로 보아 인스턴스 위치의 UV 한 곳만 샘플링하거나, 에셋 제작 과정에서 Texture나 Vertex에 기록한 Pivot 위치만 샘플링하는 것으로 추정했습니다.</p>
+          <p>Material에서는 반환된 Position Offset 값을 더합니다.</p>
           <div className="detail-media two"><img src={detailImage('image23.png')} alt="Ground Interaction Material Function" /><img src={detailImage('image24.png')} alt="Ground Interaction Material" /></div>
 
-          <h3>설정</h3>
-          <p>Interaction 범위, Render Target 해상도, Fade 속도와 최대 높이, 업데이트 주기 등을 설정할 수 있습니다. 낮은 고정 프레임의 움직임이 필요하면 Depth Fade Update Rate를 조절합니다.</p>
+          <h3>세팅 목록</h3>
+          <p>Ground Interaction 설정값 목록입니다. “명일방주: 엔드필드”는 비슷한 Dual Depth Interaction을 사용하면서 풀의 흔들림이 게임 프레임보다 낮은 고정 프레임으로 동작하는 것으로 보였습니다. 비슷한 결과를 얻으려면 Depth Fade Update Rate를 30 정도로 낮추면 됩니다.</p>
           <div className="detail-media one"><img src={detailImage('image25.png')} alt="Ground Interaction 설정 목록" /></div>
+
+          <h3>작업 결과</h3>
+          <p>인스턴스 위치만 샘플링하도록 설정하면 풀 인스턴스 전체가 같은 방향으로 움직입니다.</p>
+          <div className="detail-media one"><img src={detailImage('image26.gif')} alt="인스턴스 위치 샘플링 결과" /></div>
+          <p>버텍스 위치를 샘플링하도록 설정하면 풀이 부분적으로 움직입니다.</p>
+          <div className="detail-media two"><img src={detailImage('image27.gif')} alt="버텍스 위치 샘플링 결과" /><img src={detailImage('image28.png')} alt="Ground Interaction Depth Render Target 결과" /></div>
+
+          <h3>성능</h3>
+          <p>양발과 팔다리 캡쳐용 프록시 메시를 12개씩 가진 캐릭터 11명을 배치하여 GPU 성능을 측정했습니다. 총 충돌체 개수는 132개입니다.</p>
+          <p>Depth Capture 전체 비용은 0.11ms, Scrolling과 Fade 등 나머지 패스의 전체 비용은 0.01ms입니다.</p>
+          <p>Niagara Simulation Stage 방식으로 폴리지 인터렉션을 구현했을 때는 캐릭터당 충돌체가 하나뿐인 조건에서도 캐릭터가 10명 이상이면 비용이 0.3ms 이상으로 증가했습니다. 이에 비해 Depth Capture 방식은 30배 이상의 성능 향상을 보여줍니다.</p>
+          <p>메인 페이지 작업 결과 기준으로는 Niagara Simulation 대신 Depth Capture를 사용해 충돌체 132개 상황에서도 캡쳐 비용 0.09ms의 좋은 성능을 유지합니다.</p>
+          <div className="detail-media one"><img src={detailImage('image29.png')} alt="Ground Interaction GPU 성능 측정 결과" /></div>
         </section>
 
         <section className="detail-section">
           <h2>Water Interaction</h2>
+
           <h3>작업 내역</h3>
           <div className="detail-media two"><img src={detailImage('image30.png')} alt="Water Interaction 작업 내역 1" /><img src={detailImage('image31.png')} alt="Water Interaction 작업 내역 2" /></div>
 
           <h3>컴포넌트 구성</h3>
-          <p>Component와 Render Proxy, Center Snap 구조는 Ground Interaction과 동일합니다. Water Body와 접촉한 프록시 메시가 일정 속도 이상으로 움직일 때 접촉면 정보를 전달하며, 설정된 간격으로 파장을 생성합니다. Subsystem의 공개 함수로 외부 위치에도 파장을 추가할 수 있습니다.</p>
-          <div className="detail-media three"><img src={detailImage('image32.png')} alt="Water Interaction 컴포넌트 코드" /><img src={detailImage('image33.png')} alt="Water Interaction Render Proxy 코드" /><img src={detailImage('image34.png')} alt="Water Splat 생성 코드" /><img src={detailImage('image35.png')} alt="Water Splat 설정 코드" /><img src={detailImage('image36.png')} alt="외부 Water Splat 추가 코드" /></div>
+          <p>컴포넌트-프록시 구조와 Center Snap 구조는 Ground Interaction과 동일합니다.</p>
+          <p>Water Body와 닿아 있고 일정 속도 이상으로 움직이는 Interaction Mesh의 접촉면 정보를 Render Proxy에 전달합니다. 충돌체는 설정된 주기로 파장을 발생시키며, 설정에서 Interaction Mesh의 파장 발생 주기를 변경할 수 있습니다.</p>
+          <p>Subsystem의 Public Function을 통해 외부에서 특정 지점에 파장을 발생시킬 수도 있습니다.</p>
+          <div className="detail-media two"><img src={detailImage('image32.png')} alt="Water Interaction 컴포넌트 코드" /><img src={detailImage('image33.png')} alt="Water Interaction Render Proxy 코드" /><img src={detailImage('image34.png')} alt="Water Splat 생성 코드" /><img src={detailImage('image35.png')} alt="Water Splat 설정 코드" /><img src={detailImage('image36.png')} alt="외부 Water Splat 추가 코드" /></div>
 
-          <h3>Splat 입력 최적화</h3>
-          <p>Splat 입력은 Compute Shader에서 처리하며 한 번에 64개씩 나누어 Dispatch합니다. Thread Group은 각 Splat이 그룹 영역과 겹치는지 먼저 판정하고 결과를 Group Shared Memory에 저장합니다. 각 픽셀은 판정을 통과한 Splat만 검사합니다.</p>
+          <h3>물 파장(Splat) 입력 최적화</h3>
+          <p>Splat 입력은 Compute Shader를 통해 이루어지며 한 번에 64개씩 나누어 Dispatch합니다.</p>
+          <p>한 그룹 안의 8×8개 스레드가 각 Splat 인덱스가 그룹 영역과 겹치는지 Culling하고 결과를 Group Shared Memory에 저장합니다. 이후 각 픽셀은 그룹 안에서 Culling된 Splat만 반복하여 검사합니다.</p>
           <div className="detail-media two"><img src={detailImage('image37.png')} alt="Water Splat Compute Shader" /><img src={detailImage('image38.png')} alt="Water Splat Group Shared Memory 코드" /></div>
 
           <h3>Scrolling</h3>
-          <p>Water Scrolling과 Simulation은 세 Height Texture의 역할 ID를 순환시키는 방식으로 구현했습니다. Scrolling 후 Texture 역할을 교체해 복사 횟수를 줄였습니다.</p>
+          <p>Water Scrolling과 Simulation 모두 세 Texture의 역할 ID를 순환시키는 방식으로 구현했습니다. Scrolling 후 역할 ID를 Advance하는 함수를 호출합니다.</p>
           <div className="detail-media one"><img src={detailImage('image39.png')} alt="Water Interaction Scrolling 코드" /></div>
 
           <h3>Water Height Simulation</h3>
-          <p>세 Height Texture를 순환하며 60Hz 고정 스텝으로 실행합니다. 현재 위치의 상하좌우를 샘플링한 합에서 이전 높이를 차감해 파동을 전달하고 Damping Factor로 감쇠합니다.</p>
+          <p>Water Simulation도 세 Texture의 순환 구조이며, 시뮬레이션 일관성을 위해 60프레임 고정 스텝으로 동작합니다.</p>
+          <p>상하좌우로 한 시뮬레이션 스텝만큼 이동한 위치를 샘플링하여 합친 값에서 중심 위치를 차감해 파동을 전파시키고, Damping Factor를 곱해 감쇠합니다.</p>
           <div className="detail-media two"><img src={detailImage('image40.png')} alt="Water Height Simulation C++ 코드" /><img src={detailImage('image41.png')} alt="Water Height Simulation Shader 코드" /></div>
 
-          <h3>Material</h3>
-          <p>현재 월드 위치에서 네 방향의 Height를 샘플링해 기울기를 계산합니다. 반환된 World Normal을 Tangent Normal로 변환해 Water Material에 적용합니다.</p>
+          <h3>머티리얼</h3>
+          <p>Material Function에서 현재 World Position을 기준으로 지정한 월드 거리만큼 떨어진 네 방향의 위치를 샘플링하고 기울기를 구해 반환합니다.</p>
+          <p>Material에서 World Normal을 Tangent Normal로 변환하여 사용합니다.</p>
           <div className="detail-media two"><img src={detailImage('image42.png')} alt="Water Normal Material Function" /><img src={detailImage('image43.png')} alt="Water Material" /></div>
+
+          <h3>작업 결과</h3>
+          <p>0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성한 결과입니다.</p>
+          <div className="detail-media one"><img src={detailImage('image44.gif')} alt="Water Interaction 0.1초에서 0.3초 입력 결과" /></div>
+          <p>파장 입력 주기를 0으로 설정한 결과입니다.</p>
+          <div className="detail-media one"><img src={detailImage('image45.gif')} alt="Water Interaction 입력 주기 0 결과" /></div>
+
+          <h3>성능</h3>
+          <p>Water Simulation 관련 패스의 GPU 비용은 Splat 0.04ms, Scrolling 0.04ms, Height Simulation 0.03ms입니다.</p>
+          <p>GPU Total Cost는 0.12ms이며 평균은 0.09ms입니다.</p>
+          <div className="detail-media one"><img src={detailImage('image46.png')} alt="Water Interaction GPU 성능 측정 결과" /></div>
+        </section>
+
+        <section className="detail-section">
+          <p>감사합니다.</p>
         </section>
 
         <p className="detail-source"><a href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">전체 소스와 커밋 기록 보기 ↗</a></p>
