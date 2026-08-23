@@ -150,22 +150,17 @@ export default function Home() {
               <p>Engine Source를 수정하여 GBuffer 내용을 추가·변경하고 Material Editor Pin과 Shading Model을 추가했습니다. Lightmap Texture를 이용한 재질 표현과 SDF Texture를 이용한 Face Shadow를 구현했습니다.</p>
               <div className="gbuffer-map">
                 <p className="gbuffer-map-title"><strong>Toon Shading Model</strong></p>
-                <p><strong>GBufferC.RGB:</strong> Base Color</p>
-                <p><strong>GBufferC.A:</strong> Metal Map(CustomData0)</p>
-                <p><strong>GBufferD.RGB:</strong> Shadow Color</p>
-                <p><strong>GBufferE.R:</strong> Glossiness</p>
-                <p><strong>GBufferE.G:</strong> Lightmap</p>
-                <p><strong>GBufferE.B:</strong> Specular</p>
-                <p><strong>GBufferE.A:</strong> Ramp Range</p>
+                <p><strong>GBufferA:</strong> RGB=WorldNormal.xyz, A=PerObjectGBufferData</p>
+                <p><strong>GBufferB:</strong> R=Metallic, G=Specular, B=Roughness, A=ShadingModelID</p>
+                <p><strong>GBufferC:</strong> RGB=BaseColor.rgb, A=Metal Map(CustomData0)</p>
+                <p><strong>GBufferD:</strong> RGB=Shadow Color.rgb, A=사용하지 않음</p>
+                <p><strong>GBufferE:</strong> R=Glossiness, G=Lightmap, B=Specular, A=Ramp Range</p>
 
                 <p className="gbuffer-map-title"><strong>ToonFace Shading Model</strong></p>
-                <p><strong>GBufferB.RG:</strong> Face Forward</p>
-                <p><strong>GBufferB.B:</strong> Roughness</p>
-                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
-                <p><strong>GBufferC.RGB:</strong> Base Color</p>
-                <p><strong>GBufferC.A:</strong> 원본 Face Shadow Texture(CustomData0)</p>
-                <p><strong>GBufferD.RGB:</strong> Shadow Color</p>
-                <p><strong>GBufferD.A:</strong> 좌우 반전 Face Shadow Texture(CustomData1)</p>
+                <p><strong>GBufferA:</strong> RGB=WorldNormal.xyz, A=PerObjectGBufferData</p>
+                <p><strong>GBufferB:</strong> RG=FaceForward.xy, B=Roughness, A=ShadingModelID</p>
+                <p><strong>GBufferC:</strong> RGB=BaseColor.rgb, A=원본 Face Shadow Texture(CustomData0)</p>
+                <p><strong>GBufferD:</strong> RGB=Shadow Color.rgb, A=좌우 반전 Face Shadow Texture(CustomData1)</p>
                 <p><strong>GBufferE:</strong> 사용하지 않음</p>
               </div>
               <p>첫 번째 구현에는 두 가지 문제가 있었습니다. Shadow Color가 GBufferD의 RGB 세 채널을 사용해 공간 효율이 낮았고, 얼굴에 그림자가 드리워졌을 때 음영이 밋밋하게 표현되었습니다.</p>
@@ -176,26 +171,18 @@ export default function Home() {
               <h4>젠레스 존 제로 스타일 Toon Shading</h4>
               <div className="gbuffer-map">
                 <p className="gbuffer-map-title"><strong>일반 Toon Shading Model</strong></p>
-                <p><strong>GBufferB.R:</strong> N·L Strip Index(CustomData0)</p>
-                <p><strong>GBufferB.G:</strong> 사용하지 않음</p>
-                <p><strong>GBufferB.B:</strong> Roughness</p>
-                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
-                <p><strong>GBufferC.RGB:</strong> Base Color</p>
-                <p><strong>GBufferC.A:</strong> AO</p>
-                <p><strong>GBufferD.RGBA:</strong> Lightmap 0</p>
-                <p><strong>GBufferE.RGB:</strong> Noise 1·2·3</p>
-                <p><strong>GBufferE.A:</strong> MatCap(CustomData1)</p>
+                <p><strong>GBufferA:</strong> RGB=WorldNormal.xyz, A=PerObjectGBufferData</p>
+                <p><strong>GBufferB:</strong> R=N·L Strip Index(CustomData0), G=사용하지 않음, B=Roughness, A=ShadingModelID</p>
+                <p><strong>GBufferC:</strong> RGB=BaseColor.rgb, A=AO</p>
+                <p><strong>GBufferD:</strong> RGBA=Lightmap0.rgba</p>
+                <p><strong>GBufferE:</strong> R=Noise1, G=Noise2, B=Noise3, A=MatCap(CustomData1)</p>
 
                 <p className="gbuffer-map-title"><strong>Face Shadow용 ToonFace Shading Model</strong></p>
-                <p><strong>GBufferB.R:</strong> N·L Strip Index(CustomData0)</p>
-                <p><strong>GBufferB.G:</strong> 사용하지 않음</p>
-                <p><strong>GBufferB.B:</strong> Roughness</p>
-                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
-                <p><strong>GBufferC.RGB:</strong> Base Color</p>
-                <p><strong>GBufferC.A:</strong> 사용하지 않음</p>
-                <p><strong>GBufferD.RGBA:</strong> Lightmap 0</p>
-                <p><strong>GBufferE.RG:</strong> Lightmap 1</p>
-                <p><strong>GBufferE.BA:</strong> Face Forward</p>
+                <p><strong>GBufferA:</strong> RGB=WorldNormal.xyz, A=PerObjectGBufferData</p>
+                <p><strong>GBufferB:</strong> R=N·L Strip Index(CustomData0), G=사용하지 않음, B=Roughness, A=ShadingModelID</p>
+                <p><strong>GBufferC:</strong> RGB=BaseColor.rgb, A=사용하지 않음</p>
+                <p><strong>GBufferD:</strong> RGBA=Lightmap0.rgba</p>
+                <p><strong>GBufferE:</strong> RG=Lightmap1.rg, BA=FaceForward.xy</p>
               </div>
               <p>얼굴에 그림자가 드리워진 상태에서는 더 짙은 Face Shadow를 표현합니다. Material Parameter로 음영 LUT Index를 선택할 수 있습니다.</p>
               <p>Face Shadow Lightmap의 G Channel은 특정 부위의 빛 세기를 억제하는 역할을 합니다. B Channel은 입술과 코의 음영 윤곽을 강조합니다.</p>
