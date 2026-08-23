@@ -1,5 +1,15 @@
 import Link from 'next/link';
 
+const legacyImage = (page: number) => `/portfolio/images/legacy-portfolio/page-${String(page).padStart(2, '0')}.webp`;
+
+function LegacyPages({ pages, title }: { pages: number[]; title: string }) {
+  return (
+    <div className="legacy-pages">
+      {pages.map((page) => <img key={page} src={legacyImage(page)} alt={`${title} 포트폴리오 ${page}페이지`} />)}
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -84,6 +94,81 @@ export default function Home() {
               <Link href="/projects/ground-interaction/">구현 상세 보기 →</Link>
               <a href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">소스 저장소 ↗</a>
             </div>
+          </div>
+        </article>
+
+        <article className="portfolio-item legacy-item">
+          <div className="portfolio-item-heading">
+            <span>02</span>
+            <div>
+              <p>DirectX 11</p>
+              <h3>DX11 디퍼드 PBR 렌더러</h3>
+            </div>
+          </div>
+          <div className="portfolio-item-body">
+            <p className="portfolio-description">DirectX 11 기반 디퍼드 PBR 렌더러입니다. DOOM Eternal(2020)에 사용된 섀도 맵 아틀라스와 Compute Shader·Ray Marching 기반 볼류매트릭 라이트를 구현했습니다.</p>
+            <LegacyPages pages={[4]} title="DX11 디퍼드 PBR 렌더러" />
+            <div className="portfolio-links"><a href="https://github.com/Yaaho/DX11Study" target="_blank" rel="noreferrer">DX11Study 저장소 ↗</a></div>
+          </div>
+        </article>
+
+        <article className="portfolio-item legacy-item">
+          <div className="portfolio-item-heading">
+            <span>03</span>
+            <div>
+              <p>DirectX 11</p>
+              <h3>섀도 맵 아틀라스</h3>
+            </div>
+          </div>
+          <div className="portfolio-item-body">
+            <p className="portfolio-description">하나의 대형 Texture를 Viewport 설정으로 나누어 Shadow Map을 그립니다. 광원이 많아져도 일정한 성능을 유지할 수 있고, 빛의 거리와 우선순위에 따라 각 Shadow Map의 해상도를 조절할 수 있습니다.</p>
+            <LegacyPages pages={[5, 6, 7, 8]} title="섀도 맵 아틀라스" />
+            <div className="portfolio-links"><a href="https://github.com/Yaaho/DX11Study" target="_blank" rel="noreferrer">DX11Study 저장소 ↗</a></div>
+          </div>
+        </article>
+
+        <article className="portfolio-item legacy-item">
+          <div className="portfolio-item-heading">
+            <span>04</span>
+            <div>
+              <p>DirectX 11</p>
+              <h3>볼류매트릭 라이트</h3>
+            </div>
+          </div>
+          <div className="portfolio-item-body">
+            <p className="portfolio-description">View Frustum을 3D Voxel로 나누어 빛의 색상과 Density를 기록하고, 별도의 3D Texture에 Ray Marching 결과를 누적하여 공기 중 빛의 산란을 표현했습니다.</p>
+            <LegacyPages pages={[9, 10, 11, 12, 13, 14, 15, 16, 17]} title="볼류매트릭 라이트" />
+            <div className="portfolio-links"><a href="https://github.com/Yaaho/DX11Study" target="_blank" rel="noreferrer">DX11Study 저장소 ↗</a></div>
+          </div>
+        </article>
+
+        <article className="portfolio-item legacy-item">
+          <div className="portfolio-item-heading">
+            <span>05</span>
+            <div>
+              <p>Unreal Engine Source</p>
+              <h3>언리얼 엔진 커스텀</h3>
+            </div>
+          </div>
+          <div className="portfolio-item-body">
+            <p className="portfolio-description">Unreal Engine의 GBuffer, Material Editor Pin과 Shading Model을 수정하여 원신 및 젠레스 존 제로 스타일의 Toon Shading을 구현했습니다. Lightmap, SDF 기반 Face Shadow, LUT 선택, Face Shadow 보정과 MetalCap 구현 내용을 포함합니다.</p>
+            <LegacyPages pages={[18, 19, 20, 21, 22, 23, 24, 25, 26, 27]} title="언리얼 엔진 커스텀" />
+            <p className="legacy-note">저장소 열람에는 Epic Games 계정과 연동된 GitHub 계정이 필요합니다.</p>
+            <div className="portfolio-links"><a href="https://github.com/Yaaho/UE5Custom" target="_blank" rel="noreferrer">UE5Custom 저장소 ↗</a></div>
+          </div>
+        </article>
+
+        <article className="portfolio-item legacy-item">
+          <div className="portfolio-item-heading">
+            <span>06</span>
+            <div>
+              <p>Houdini</p>
+              <h3>Houdini를 이용한 Procedural Modeling</h3>
+            </div>
+          </div>
+          <div className="portfolio-item-body">
+            <p className="portfolio-description">Houdini의 노드 기반 작업으로 구조물, 도로, 울타리, 식생 배치와 건물 생성 과정을 구성한 Procedural Modeling 작업입니다.</p>
+            <LegacyPages pages={[34, 35, 36, 37, 38, 39, 40]} title="Houdini를 이용한 Procedural Modeling" />
           </div>
         </article>
       </section>
