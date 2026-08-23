@@ -41,7 +41,7 @@ export default function Home() {
                   <img src="/portfolio/images/ground-interaction/ground-result.gif" alt="Ground Interaction 실행 결과" />
                   <figcaption>
                     <h5>Ground Interaction</h5>
-                    <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms 의 좋은 성능을 유지합니다</p>
+                    <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms의 좋은 성능을 유지합니다</p>
                   </figcaption>
                 </figure>
                 <figure>
@@ -74,7 +74,7 @@ export default function Home() {
                     <p>Splat <strong>0.04ms</strong></p>
                     <p>Scrolling <strong>0.04ms</strong></p>
                     <p>Height Simulation <strong>0.03ms</strong></p>
-                    <p>GPU Total Cost <strong>0.12ms</strong> (평균 0.09ms)</p>
+                    <p>GPU Total Cost <strong>0.11ms</strong> (평균 0.09ms)</p>
                   </div>
                 </div>
               </div>

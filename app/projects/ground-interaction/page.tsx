@@ -36,7 +36,7 @@ export default function GroundInteractionCaseStudy() {
           <h2>개요</h2>
           <p>캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.</p>
           <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다.</p>
-          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms 의 좋은 성능을 유지합니다.</p>
+          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms의 좋은 성능을 유지합니다.</p>
           <p>Water Interaction은 0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성합니다.</p>
         </section>
 
@@ -49,12 +49,12 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>언리얼 Niagara Simulation Stage 기반 접근</h3>
           <p>콜리전 데이터 배열을 Niagara Simulation Stage에 기록하여 Render Target을 만드는 구현 방법입니다. 하지만 이 구현 방법에는 성능상 우려되는 지점이 있었습니다.</p>
-          <p>참고 발표: In-Depth Look at a Unique Approach to Foliage Interaction</p>
+          <p><a href="https://www.youtube.com/watch?v=tDBA2br5_OQ" target="_blank" rel="noreferrer">YouTube 영상: In-Depth Look at a Unique Approach to Foliage Interaction ↗</a></p>
           <div className="detail-media one"><img src={detailImage('image3.jpg')} alt="Niagara Simulation Stage 기반 식생 인터렉션 자료" /></div>
 
           <h3>Niagara Simulation Stage의 다중 캐릭터 환경 성능</h3>
           <p>Simulation Stage에 충돌체 배열을 전달하고, 배열의 각 원소를 순회하며 일정 속도 이상의 충돌체 깊이 정보를 Grid2D에 기록하는 방식입니다.</p>
-          <p>Grid2D의 모든 셀에서 배열 전체를 반복 검사하므로 충돌체 수가 증가할수록 연산량이 선형적으로 증가합니다. 연산 복잡도는 O(C × N²)이며, C는 충돌체 개수, N은 Grid2D 해상도입니다.</p>
+          <p>Grid2D의 모든 셀에서 배열 전체를 반복 검사하므로 충돌체 수가 증가할수록 연산량이 선형적으로 증가합니다. 연산 복잡도는 <span className="nowrap">O(C × N²)</span>이며, C는 충돌체 개수, N은 Grid2D 해상도입니다.</p>
           <div className="detail-media two"><img src={detailImage('image4.png')} alt="충돌체 배열" /><img src={detailImage('image5.png')} alt="Grid2D 반복 구조" /></div>
 
           <h3>성능 개선 방안 — Bottom-up Depth Capture</h3>
@@ -70,7 +70,7 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media two"><img src={detailImage('image7.png')} alt="Ground Interaction 작업 내역 1" /><img src={detailImage('image8.png')} alt="Ground Interaction 작업 내역 2" /><img src={detailImage('image9.png')} alt="Ground Interaction 작업 내역 3" /><img src={detailImage('image10.png')} alt="Ground Interaction 작업 내역 4" /><img src={detailImage('image11.png')} alt="Ground Interaction 작업 내역 5" /><img src={detailImage('image12.png')} alt="Ground Interaction 작업 내역 6" /></div>
 
           <h3>컴포넌트 구성</h3>
-          <p>컴포넌트-프록시 구조를 사용했습니다. 인터렉션 특성상 플레이어 뷰 주변의 Render Target만 생성하여 복수의 컴포넌트를 생성할 일은 없지만, 게임 스레드와 렌더 스레드의 관계를 명확하게 하기 위해 이 구조로 구현했습니다.</p>
+          <p>컴포넌트-프록시 구조를 사용했습니다. 플레이어 뷰 주변을 나타내는 하나의 Render Target만 필요하여 복수의 컴포넌트를 생성할 일이 없다고 생각되지만, 게임 스레드와 렌더 스레드의 관계를 명확하게 하기 위해 이 구조로 구현했습니다.</p>
           <p>컴포넌트는 카메라 위치를 따라 매 프레임 이동합니다. 프록시에 설정되는 Render Target Center World 위치는 텍셀 하나가 가리키는 월드 크기만큼 Snap되도록 구현했습니다. Shadow Map에서 그림자 떨림을 방지할 때도 일반적으로 사용하는 방식입니다.</p>
           <div className="detail-media two"><img src={detailImage('image13.png')} alt="Ground Interaction 컴포넌트 코드" /><img src={detailImage('image14.png')} alt="Ground Interaction Render Proxy 코드" /><img src={detailImage('image15.png')} alt="Center Snap 코드" /></div>
 
@@ -109,7 +109,6 @@ export default function GroundInteractionCaseStudy() {
           <p>양발과 팔다리 캡쳐용 프록시 메시를 12개씩 가진 캐릭터 11명을 배치하여 GPU 성능을 측정했습니다. 총 충돌체 개수는 132개입니다.</p>
           <p>Depth Capture 전체 비용은 0.11ms, Scrolling과 Fade 등 나머지 패스의 전체 비용은 0.01ms입니다.</p>
           <p>Niagara Simulation Stage 방식으로 폴리지 인터렉션을 구현했을 때는 캐릭터당 충돌체가 하나뿐인 조건에서도 캐릭터가 10명 이상이면 비용이 0.3ms 이상으로 증가했습니다. 이에 비해 Depth Capture 방식은 30배 이상의 성능 향상을 보여줍니다.</p>
-          <p>메인 페이지 작업 결과 기준으로는 Niagara Simulation 대신 Depth Capture를 사용해 충돌체 132개 상황에서도 캡쳐 비용 0.1ms 의 좋은 성능을 유지합니다.</p>
           <div className="detail-media one"><img src={detailImage('image29.png')} alt="Ground Interaction GPU 성능 측정 결과" /></div>
         </section>
 
@@ -152,7 +151,7 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>성능</h3>
           <p>Water Simulation 관련 패스의 GPU 비용은 Splat 0.04ms, Scrolling 0.04ms, Height Simulation 0.03ms입니다.</p>
-          <p>GPU Total Cost는 0.12ms이며 평균은 0.09ms입니다.</p>
+          <p>GPU Total Cost는 0.11ms이며 평균은 0.09ms입니다.</p>
           <div className="detail-media one"><img src={detailImage('image46.png')} alt="Water Interaction GPU 성능 측정 결과" /></div>
         </section>
 
