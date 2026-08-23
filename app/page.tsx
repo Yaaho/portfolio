@@ -113,26 +113,22 @@ export default function Home() {
             </div>
           </div>
           <div className="portfolio-item-body">
-            <p className="portfolio-description">DirectX 11 기반 디퍼드 PBR 렌더러입니다. DOOM Eternal(2020)에 사용된 섀도 맵 아틀라스와 Compute Shader·Ray Marching 기반 볼류매트릭 라이트를 구현했습니다.</p>
+            <p className="portfolio-description">DirectX 11 기반 디퍼드 PBR 렌더러입니다. Shadow Map Atlas와 Compute Shader·Ray Marching 기반 볼류매트릭 라이트를 구현했습니다.</p>
             <a className="repository-link" href="https://github.com/Yaaho/DX11Study" target="_blank" rel="noreferrer">DX11Study 저장소 ↗</a>
 
             <div className="legacy-copy">
               <h4>섀도 맵 아틀라스</h4>
-              <p>하나의 큰 Texture를 Viewport 설정으로 나누어 Shadow Map을 그립니다. 빛을 드리우는 광원이 많아져도 일정한 성능을 유지할 수 있으며, 빛의 거리와 우선순위에 따라 각 Shadow Map의 해상도를 조절할 수 있습니다.</p>
-              <p>LightClass.h에는 광원별 Shadow Map이 Texture Atlas에서 그려질 위치와 크기를 저장하는 구조체를 두었습니다. 이 구조체는 C++에서 Viewport 크기를 조정하고, 그대로 Constant Buffer에 업로드되어 HLSL에서도 사용됩니다.</p>
-              <p>ApplicationClass.cpp에서 Viewport의 위치와 크기를 조정해 Shadow Map을 Atlas의 원하는 영역에 그립니다. HLSL에서는 Constant Buffer로 받은 Shadow Map 정보를 이용해 그림자 표현에 필요한 Shadow Factor를 계산합니다.</p>
+              <p>하나의 큰 Texture를 Viewport 설정으로 나누어 Shadow Map Atlas를 그립니다.</p>
+              <p>빛을 드리우는 광원이 많아져도 동일한 Shadow Map Atlas 해상도를 유지합니다.</p>
             </div>
             <LegacyAssets images={range(3, 10)} title="DX11 섀도 맵 아틀라스" />
 
             <div className="legacy-copy">
               <h4>볼류매트릭 라이트</h4>
-              <p>빛이 공기 중을 진행하며 산란되는 현상을 표현했습니다. View Frustum을 X·Y·Z축의 Voxel 형태로 나누고 각 Voxel 위치의 빛 색상과 Density를 3D Texture에 기록합니다. 이 값을 다른 3D Texture에 Z 방향으로 누적하여 해당 위치에서 빛이 얼마나 산란되었는지 기록하고 사용합니다.</p>
-              <p>m_TemporalIntegrationVoxelGrid는 각 Voxel 위치의 산란광 색상과 Density를 저장하고, m_RayMarchVoxelGrid는 그 값을 누적합니다. 이전 프레임의 결과는 Temporal Data로 사용합니다.</p>
+              <p>빛이 공기 중을 진행하며 산란되는 현상을 표현했습니다. View Frustum을 X·Y·Z축의 Voxel 형태로 나누고 각 Voxel 위치의 빛 색상과 Density를 3D Texture에 기록합니다. 이 값을 다른 3D Texture에 Z 방향으로 레이마칭하고 누적하여 해당 위치에서 빛이 얼마나 산란되었는지 기록하고 사용합니다.</p>
               <p>Compute Shader에서 Voxel 좌표에 대응하는 World Position을 구합니다. 카메라에 가까운 위치에 Texture가 더 많이 배치되도록 World Z는 지수 분포를 따르게 했고 지수값은 2로 설정했습니다. 프레임마다 다른 Jitter를 적용하여 Voxel 정위치에서 조금 이동한 위치의 빛을 기록합니다.</p>
-              <p>현재 World Position에 빛이 도달하는지는 앞서 구현한 Shadow Map Atlas로 판단합니다. 빛의 산란값은 Henyey-Greenstein Phase Function으로 계산합니다. 이전 프레임 Texture의 지수 분포를 되돌릴 때는 1 / Depth Power 값을 사용해 World Position에 맞는 3D Texture UV를 구합니다.</p>
-              <p>마지막으로 산란 결과를 Texture에 기록합니다. RaymarchCS.HLSL에서는 결과 3D Texture를 SRV로, 같은 크기의 빈 3D Texture를 UAV로 사용하고 카메라에서 가까운 곳부터 산란광의 누적값을 기록합니다.</p>
             </div>
-            <LegacyAssets images={range(11, 28)} title="DX11 볼류매트릭 라이트" />
+            <LegacyAssets images={range(11, 28).filter((number) => ![11, 16, 20].includes(number))} title="DX11 볼류매트릭 라이트" />
           </div>
         </article>
 
@@ -145,7 +141,7 @@ export default function Home() {
             </div>
           </div>
           <div className="portfolio-item-body">
-            <p className="portfolio-description">Unreal Engine의 GBuffer, Material Editor Pin과 Shading Model을 수정하여 원신 및 젠레스 존 제로 스타일의 Toon Shading을 구현했습니다. Lightmap, SDF 기반 Face Shadow, LUT 선택, Face Shadow 보정과 MetalCap 구현 내용을 포함합니다.</p>
+            <p className="portfolio-description">Unreal Engine의 GBuffer, Material Editor Pin과 Shading Model을 수정하여 원신 및 젠레스 존 제로 스타일의 Toon Shading을 구현했습니다. Lightmap, SDF 기반 Face Shadow, LUT 선택, Face Shadow 보정과 MatCap 구현 내용을 포함합니다.</p>
             <a className="repository-link" href="https://github.com/Yaaho/UE5Custom" target="_blank" rel="noreferrer">UE5Custom 저장소 ↗</a>
             <p className="legacy-note">저장소 열람에는 Epic Games 계정과 연동된 GitHub 계정이 필요합니다.</p>
 
@@ -160,11 +156,11 @@ export default function Home() {
 
             <div className="legacy-copy">
               <h4>젠레스 존 제로 스타일 Toon Shading</h4>
-              <p>첫 번째 GBuffer 구성은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color와 AO, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Noise 1·2·3과 MetalCap을 저장합니다.</p>
+              <p>첫 번째 GBuffer 구성은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color와 AO, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Noise 1·2·3과 MatCap을 저장합니다.</p>
               <p>두 번째 GBuffer 구성은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Lightmap 1의 RG와 Face Forward XY를 저장합니다.</p>
               <p>얼굴에 그림자가 드리워진 상태에서는 더 짙은 Face Shadow를 표현합니다. Material Parameter로 음영 LUT Index를 선택할 수 있습니다.</p>
               <p>Face Shadow Lightmap의 G Channel은 빛 반대편에 맺히는 상을 억제하여 음영이 얼굴 절반까지 이동한 뒤 반대편에 빛이 나타나게 합니다. B Channel은 입술과 코의 음영 윤곽을 강조합니다.</p>
-              <p>광택 이미지를 이용한 MetalCap을 구현했으며, MetalCap의 빛 모양은 Pixel의 Clip Space Position과 Normal에 따라 변합니다.</p>
+              <p>광택 이미지를 이용한 MatCap을 구현했으며, MatCap의 빛 모양은 Pixel의 Clip Space Position과 Normal에 따라 변합니다.</p>
             </div>
             <LegacyAssets images={range(34, 45)} title="젠레스 존 제로 스타일 언리얼 엔진 커스텀" />
           </div>
