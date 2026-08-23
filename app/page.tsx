@@ -41,7 +41,7 @@ export default function Home() {
                   <img src="/portfolio/images/ground-interaction/ground-result.gif" alt="Ground Interaction 실행 결과" />
                   <figcaption>
                     <h5>Ground Interaction</h5>
-                    <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다. Niagara Simulation 대신 Depth Capture를 사용했습니다.</p>
+                    <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.09의 안정적 성능을 유지합니다.</p>
                   </figcaption>
                 </figure>
                 <figure>
