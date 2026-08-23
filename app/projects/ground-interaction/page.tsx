@@ -18,12 +18,12 @@ export default function GroundInteractionCaseStudy() {
             <h1>Dual Depth Fade<br />Ground Interaction/<br />Water Interaction<br />시스템 개발</h1>
             <p className="case-deck">
               언리얼 엔진으로<br />
-              폴리지 인터렉션, 워터 인터렉션 시스템을<br />
+              폴리지 및 워터 인터렉션 시스템을<br />
               성능을 고려하여 완결성 있게 구현한 과정을<br />
               설명합니다.
             </p>
             <div className="case-title-rule" aria-hidden="true" />
-            <p className="case-credit">임건우 · / Cinder City 프로그래머 재직중 2025-5-12 ~ 현재</p>
+            <p className="case-credit">임건우 · Cinder City 프로그래머 · 2025.05.12~현재</p>
           </div>
           <figure className="case-hero-image">
             <img src="/portfolio/images/ground-interaction/hero.png" alt="폴리지와 수면 상호작용 실행 화면" />
@@ -36,15 +36,15 @@ export default function GroundInteractionCaseStudy() {
           <h2>개요</h2>
           <p>캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.</p>
           <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다.</p>
-          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms의 좋은 성능을 유지합니다.</p>
-          <p>Water Interaction은 0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성합니다.</p>
+          <p>카메라 주변 충돌체가 132개인 환경에서도 Depth Capture 비용은 0.1ms 정도로 좋은 성능을 유지합니다.</p>
+          <p>수면에 닿은 일정 속도 이상의 충돌체가 0.1~0.3초 간격으로 수면과 겹친 면적만큼 파장을 입력합니다.</p>
         </section>
 
         <section className="detail-section">
           <h2>기술적 배경</h2>
 
-          <h3>갓 오브 워(2019)의 식생 인터렉션 발표</h3>
-          <p>렌더 타겟의 한 채널에 콜리전의 Depth를 기록하고, 나머지 채널에서 시간에 따라 해당 Depth 값을 위로 Fade하여 값의 변화로 폴리지의 흔들림을 구현했다는 아이디어입니다.</p>
+          <h3>갓 오브 워(2018)의 식생 인터렉션 발표</h3>
+          <p>렌더 타겟의 한 채널에 콜리전의 Depth를 기록하고, 나머지 채널에서 시간에 따라 해당 Depth 값을 Z 방향으로 Fade하여 값의 변화로 폴리지의 흔들림을 구현했다는 아이디어입니다.</p>
           <div className="detail-media one"><img src={detailImage('image2.png')} alt="갓 오브 워 식생 인터렉션 발표 자료" /></div>
 
           <h3>언리얼 Niagara Simulation Stage 기반 접근</h3>
@@ -70,8 +70,8 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media two"><img src={detailImage('image7.png')} alt="Ground Interaction 작업 내역 1" /><img src={detailImage('image8.png')} alt="Ground Interaction 작업 내역 2" /><img src={detailImage('image9.png')} alt="Ground Interaction 작업 내역 3" /><img src={detailImage('image10.png')} alt="Ground Interaction 작업 내역 4" /><img src={detailImage('image11.png')} alt="Ground Interaction 작업 내역 5" /><img src={detailImage('image12.png')} alt="Ground Interaction 작업 내역 6" /></div>
 
           <h3>컴포넌트 구성</h3>
-          <p>컴포넌트-프록시 구조를 사용했습니다. 플레이어 뷰 주변을 나타내는 하나의 Render Target만 필요하여 복수의 컴포넌트를 생성할 일이 없다고 생각되지만, 게임 스레드와 렌더 스레드의 관계를 명확하게 하기 위해 이 구조로 구현했습니다.</p>
-          <p>컴포넌트는 카메라 위치를 따라 매 프레임 이동합니다. 프록시에 설정되는 Render Target Center World 위치는 텍셀 하나가 가리키는 월드 크기만큼 Snap되도록 구현했습니다. Shadow Map에서 그림자 떨림을 방지할 때도 일반적으로 사용하는 방식입니다.</p>
+          <p>컴포넌트-프록시 구조를 사용했습니다. 플레이어 뷰 주변을 나타내는 하나의 Render Target만 필요하여 복수의 컴포넌트를 생성할 일이 없지만, 게임 스레드와 렌더 스레드의 관계를 명확하게 하기 위해 이 구조로 구현했습니다.</p>
+          <p>컴포넌트는 카메라 위치를 따라 매 프레임 이동합니다. Render Target이 가리키는 월드 중심 좌표를 텍셀 하나가 가리키는 월드 크기만큼 스냅했습니다. Shadow Map에서 그림자 떨림을 방지할 때도 일반적으로 사용하는 방식입니다.</p>
           <div className="detail-media two"><img src={detailImage('image13.png')} alt="Ground Interaction 컴포넌트 코드" /><img src={detailImage('image14.png')} alt="Ground Interaction Render Proxy 코드" /><img src={detailImage('image15.png')} alt="Center Snap 코드" /></div>
 
           <h3>컴포넌트 구성 — 캡쳐 패스와 MPC</h3>
@@ -81,7 +81,7 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>렌더 프록시 구현</h3>
           <p>렌더 프록시의 패스는 세 가지 순서로 실행됩니다.</p>
-          <p>Scrolling Pass는 현재 프레임의 World Center와 이전 프레임의 World Center가 다를 때만 실행합니다. Fade는 Developer Settings에서 설정된 주기로 실행하며 Depth 결과값을 설정된 속도로 위로 Fade합니다. Update Depth는 Depth Capture 결과로 Render Target을 업데이트합니다.</p>
+          <p>Scrolling Pass는 현재 프레임의 World Center와 이전 프레임의 World Center가 다를 때만 실행합니다. Fade는 Developer Settings에서 설정된 주기로 실행하며 Depth 결과값을 설정된 속도로 Z 방향으로 Fade합니다. Update Depth는 Depth Capture 결과로 Render Target을 업데이트합니다.</p>
           <div className="detail-media one"><img src={detailImage('image18.png')} alt="Ground Interaction Render Proxy 패스 코드" /></div>
 
           <h3>캡쳐 전용 메시 컴포넌트 생성</h3>
@@ -90,13 +90,13 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media two"><img src={detailImage('image19.png')} alt="프록시 메시 생성 코드" /><img src={detailImage('image20.png')} alt="Physics Asset 프록시 메시" /><img src={detailImage('image21.png')} alt="Physics Asset 자동 생성 코드" /><img src={detailImage('image22.png')} alt="Physics Asset 자동 생성 결과" /></div>
 
           <h3>머티리얼</h3>
-          <p>플러그인의 Material Function에서 Position Offset을 반환하도록 만들었습니다. 풀의 뿌리 부분에서 흔들림의 세기가 약해지는 기능은 흔히 사용하는 Vertex Color 방식 대신 Pixel World Position과 Instance Bound를 사용했습니다. Vertex Color를 사용해도 문제는 없습니다.</p>
+          <p>플러그인의 Material Function에서 Position Offset을 반환하도록 만들었습니다. 풀의 뿌리 부분에서 흔들림의 세기가 약해지는 기능은 흔히 사용하는 Vertex Color 방식 대신 Pixel World Position과 Instance Bound를 사용했습니다. Vertex Color를 사용하도록 대응할 수도 있습니다.</p>
           <p>Depth Render Target을 샘플링하는 위치는 Pixel World Position과 풀 인스턴스 중심 위치를 모두 사용할 수 있습니다. 갓 오브 워의 풀은 전체적으로 흔들리는 것으로 보아 인스턴스 위치의 UV 한 곳만 샘플링하거나, 에셋 제작 과정에서 Texture나 Vertex에 기록한 Pivot 위치만 샘플링하는 것으로 추정했습니다.</p>
-          <p>Material에서는 반환된 Position Offset 값을 더합니다.</p>
+          <p>Material에서는 플러그인의 MF에서 반환된 World Position Offset 값을 더합니다.</p>
           <div className="detail-media two"><img src={detailImage('image23.png')} alt="Ground Interaction Material Function" /><img src={detailImage('image24.png')} alt="Ground Interaction Material" /></div>
 
           <h3>세팅 목록</h3>
-          <p>Ground Interaction 설정값 목록입니다. “명일방주: 엔드필드”는 비슷한 Dual Depth Interaction을 사용하면서 풀의 흔들림이 게임 프레임보다 낮은 고정 프레임으로 동작하는 것으로 보였습니다. 비슷한 결과를 얻으려면 Depth Fade Update Rate를 30 정도로 낮추면 됩니다.</p>
+          <p>Ground Interaction 설정값 목록입니다. “명일방주: 엔드필드”는 비슷한 Dual Depth Interaction을 사용하면서 풀의 흔들림이 게임 프레임보다 낮은 고정 프레임으로 동작하는 것으로 보였습니다. 비슷한 결과를 얻으려면 Depth Fade Update Rate를 초당 30회 정도로 낮추면 됩니다.</p>
           <div className="detail-media one"><img src={detailImage('image25.png')} alt="Ground Interaction 설정 목록" /></div>
 
           <h3>작업 결과</h3>
@@ -125,8 +125,8 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media two"><img src={detailImage('image32.png')} alt="Water Interaction 컴포넌트 코드" /><img src={detailImage('image33.png')} alt="Water Interaction Render Proxy 코드" /><img src={detailImage('image34.png')} alt="Water Splat 생성 코드" /><img src={detailImage('image35.png')} alt="Water Splat 설정 코드" /><img src={detailImage('image36.png')} alt="외부 Water Splat 추가 코드" /></div>
 
           <h3>물 파장(Splat) 입력 최적화</h3>
-          <p>Splat 입력은 Compute Shader를 통해 이루어지며 한 번에 64개씩 나누어 Dispatch합니다.</p>
-          <p>한 그룹 안의 8×8개 스레드가 각 Splat 인덱스가 그룹 영역과 겹치는지 Culling하고 결과를 Group Shared Memory에 저장합니다. 이후 각 픽셀은 그룹 안에서 Culling된 Splat만 반복하여 검사합니다.</p>
+          <p>Splat 입력은 Compute Shader를 통해 이루어지며, Splat을 64개 단위로 나누어 Dispatch합니다.</p>
+          <p>한 그룹 안의 8×8개 스레드가 각 Splat의 영향 범위가 그룹 영역과 겹치는지 검사하고, 겹치는 Splat의 인덱스를 Group Shared Memory의 인덱스 배열에 저장합니다. 이후 각 픽셀은 이 배열에 저장된 Splat만 반복하여 검사합니다.</p>
           <div className="detail-media two"><img src={detailImage('image37.png')} alt="Water Splat Compute Shader" /><img src={detailImage('image38.png')} alt="Water Splat Group Shared Memory 코드" /></div>
 
           <h3>Scrolling</h3>
@@ -134,7 +134,7 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media one"><img src={detailImage('image39.png')} alt="Water Interaction Scrolling 코드" /></div>
 
           <h3>Water Height Simulation</h3>
-          <p>Water Simulation도 세 Texture의 순환 구조이며, 시뮬레이션 일관성을 위해 60프레임 고정 스텝으로 동작합니다.</p>
+          <p>Water Simulation도 세 Texture의 순환 구조이며, 시뮬레이션 일관성을 위해 60Hz 고정 스텝으로 동작합니다.</p>
           <p>상하좌우로 한 시뮬레이션 스텝만큼 이동한 위치를 샘플링하여 합친 값에서 중심 위치를 차감해 파동을 전파시키고, Damping Factor를 곱해 감쇠합니다.</p>
           <div className="detail-media two"><img src={detailImage('image40.png')} alt="Water Height Simulation C++ 코드" /><img src={detailImage('image41.png')} alt="Water Height Simulation Shader 코드" /></div>
 
@@ -144,9 +144,9 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media two"><img src={detailImage('image42.png')} alt="Water Normal Material Function" /><img src={detailImage('image43.png')} alt="Water Material" /></div>
 
           <h3>작업 결과</h3>
-          <p>0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성한 결과입니다.</p>
+          <p>수면에 닿은 일정 속도 이상의 충돌체가 0.1~0.3초 간격으로 수면과 겹친 면적만큼 파장을 입력한 결과입니다.</p>
           <div className="detail-media one"><img src={detailImage('image44.gif')} alt="Water Interaction 0.1초에서 0.3초 입력 결과" /></div>
-          <p>파장 입력 주기를 0으로 설정한 결과입니다.</p>
+          <p>파장 입력 주기를 0으로 설정하여 매 프레임 파장이 입력되도록 한 결과입니다.</p>
           <div className="detail-media one"><img src={detailImage('image45.gif')} alt="Water Interaction 입력 주기 0 결과" /></div>
 
           <h3>성능</h3>

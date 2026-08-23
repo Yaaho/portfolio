@@ -28,7 +28,7 @@ export default function Home() {
       </header>
 
       <section className="portfolio-intro wrap">
-        <p className="portfolio-employment"><strong>임건우 · / Cinder City 프로그래머 재직중 2025-5-12 ~ 현재</strong></p>
+        <p className="portfolio-employment"><strong>임건우 · Cinder City 프로그래머 · 2025.05.12~현재</strong></p>
         <p>저의 포트폴리오를 소개하는 페이지입니다.</p>
       </section>
 
@@ -58,14 +58,14 @@ export default function Home() {
                   <img src="/portfolio/images/ground-interaction/ground-result.gif" alt="Ground Interaction 실행 결과" />
                   <figcaption>
                     <h5>Ground Interaction</h5>
-                    <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms의 좋은 성능을 유지합니다</p>
+                    <p>카메라 주변 충돌체가 132개인 환경에서도 Depth Capture 비용은 0.1ms 정도로 좋은 성능을 유지합니다.</p>
                   </figcaption>
                 </figure>
                 <figure>
                   <img src="/portfolio/images/ground-interaction/water-result.gif" alt="Water Interaction 실행 결과" />
                   <figcaption>
                     <h5>Water Interaction</h5>
-                    <p>0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장 생성</p>
+                    <p>수면에 닿은 일정 속도 이상의 충돌체가 0.1~0.3초 간격으로 수면과 겹친 면적만큼 파장을 입력합니다.</p>
                   </figcaption>
                 </figure>
               </div>
@@ -87,7 +87,7 @@ export default function Home() {
                   <img src="/portfolio/images/ground-interaction/water-performance.png" alt="Water Interaction GPU 성능 측정 화면" />
                   <div>
                     <h5>Water Interaction</h5>
-                    <p>Water Simulation 관련 패스 GPU 비용 총합</p>
+                    <p>Water Simulation 패스별 GPU 비용</p>
                     <p>Splat <strong>0.04ms</strong></p>
                     <p>Scrolling <strong>0.04ms</strong></p>
                     <p>Height Simulation <strong>0.03ms</strong></p>
@@ -118,15 +118,15 @@ export default function Home() {
 
             <div className="legacy-copy">
               <h4>섀도 맵 아틀라스</h4>
-              <p>하나의 큰 Texture를 Viewport 설정으로 나누어 Shadow Map Atlas를 그립니다.</p>
-              <p>빛을 드리우는 광원이 많아져도 동일한 Shadow Map Atlas 해상도를 유지합니다.</p>
+              <p>하나의 큰 Texture를 여러 영역으로 나누고, Viewport를 조정해 각 영역에 Shadow Map을 그려 Atlas를 구성합니다.</p>
+              <p>그림자를 드리우는 광원이 많아져도 동일한 Shadow Map Atlas 해상도를 유지합니다.</p>
             </div>
             <LegacyAssets images={range(3, 10)} title="DX11 섀도 맵 아틀라스" />
 
             <div className="legacy-copy">
               <h4>볼류매트릭 라이트</h4>
-              <p>빛이 공기 중을 진행하며 산란되는 현상을 표현했습니다. View Frustum을 X·Y·Z축의 Voxel 형태로 나누고 각 Voxel 위치의 빛 색상과 Density를 3D Texture에 기록합니다. 이 값을 다른 3D Texture에 Z 방향으로 레이마칭하고 누적하여 해당 위치에서 빛이 얼마나 산란되었는지 기록하고 사용합니다.</p>
-              <p>Compute Shader에서 Voxel 좌표에 대응하는 World Position을 구합니다. 카메라에 가까운 위치에 Texture가 더 많이 배치되도록 World Z는 지수 분포를 따르게 했고 지수값은 2로 설정했습니다. 프레임마다 다른 Jitter를 적용하여 Voxel 정위치에서 조금 이동한 위치의 빛을 기록합니다.</p>
+              <p>빛이 공기 중을 진행하며 산란되는 현상을 표현했습니다. View Frustum을 X·Y·Z축의 Voxel 형태로 나누고 각 Voxel 위치의 빛 색상과 Density를 3D Texture에 기록합니다. 각 Voxel에 기록한 값을 Z 방향으로 레이마칭해 누적하고, 그 결과를 다른 3D Texture에 기록하여 해당 위치의 산란광 표현에 사용합니다.</p>
+              <p>Compute Shader에서 Voxel 좌표에 대응하는 World Position을 구합니다. 카메라에 가까운 위치에 더 많은 Voxel이 배치되도록 Voxel의 Z Texture Index가 View Space Z에 대해 지수 분포를 따르게 했고, 지수는 2로 설정했습니다. 프레임마다 다른 Jitter를 적용하여 Voxel의 중심 위치에서 조금 이동한 지점의 빛을 기록합니다.</p>
             </div>
             <LegacyAssets images={range(11, 28).filter((number) => ![11, 16, 20].includes(number))} title="DX11 볼류매트릭 라이트" />
           </div>
@@ -141,7 +141,7 @@ export default function Home() {
             </div>
           </div>
           <div className="portfolio-item-body">
-            <p className="portfolio-description">Unreal Engine의 GBuffer, Material Editor Pin과 Shading Model을 수정하여 원신 및 젠레스 존 제로 스타일의 Toon Shading을 구현했습니다. Lightmap, SDF 기반 Face Shadow, LUT 선택, Face Shadow 보정과 MatCap 구현 내용을 포함합니다.</p>
+            <p className="portfolio-description">Unreal Engine의 GBuffer 구성을 수정하고 Material Editor Pin과 Shading Model을 추가하여 원신 및 젠레스 존 제로 스타일의 Toon Shading을 구현했습니다. Lightmap, SDF 기반 Face Shadow, LUT 선택, Face Shadow 보정과 MatCap 구현 내용을 포함합니다.</p>
             <a className="repository-link" href="https://github.com/Yaaho/UE5Custom" target="_blank" rel="noreferrer">UE5Custom 저장소 ↗</a>
             <p className="legacy-note">저장소 열람에는 Epic Games 계정과 연동된 GitHub 계정이 필요합니다.</p>
 
@@ -150,17 +150,17 @@ export default function Home() {
               <p>Engine Source를 수정하여 GBuffer 내용을 추가·변경하고 Material Editor Pin과 Shading Model을 추가했습니다. Lightmap Texture를 이용한 재질 표현과 SDF Texture를 이용한 Face Shadow를 구현했습니다.</p>
               <p><strong>Toon Shading Model</strong>은 GBufferC에 Base Color와 Metal Map, GBufferD에 Shadow Color, GBufferE에 Glossiness·Lightmap·Specular·Ramp Range를 저장합니다.</p>
               <p><strong>ToonFace Shading Model</strong>은 GBufferB에 Face Forward와 Roughness·Shading Model ID, GBufferC에 Base Color와 원본 Face Shadow Texture, GBufferD에 Shadow Color와 좌우 반전 Face Shadow Texture를 저장하고 GBufferE는 사용하지 않습니다.</p>
-              <p>개선할 점은 Shadow Color가 GBuffer 슬롯 세 개를 사용하는 낭비와, 얼굴에 그림자가 드리워졌을 때 음영 표현이 밋밋해지는 문제였습니다.</p>
+              <p>기존 구현에는 두 가지 문제가 있었습니다. Shadow Color가 GBufferD의 RGB 세 채널을 사용해 공간 효율이 낮았고, 얼굴에 그림자가 드리워졌을 때 음영이 밋밋하게 표현되었습니다.</p>
             </div>
             <LegacyAssets images={range(29, 33)} title="원신 스타일 언리얼 엔진 커스텀" />
 
             <div className="legacy-copy">
               <h4>젠레스 존 제로 스타일 Toon Shading</h4>
-              <p>첫 번째 GBuffer 구성은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color와 AO, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Noise 1·2·3과 MatCap을 저장합니다.</p>
-              <p>두 번째 GBuffer 구성은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Lightmap 1의 RG와 Face Forward XY를 저장합니다.</p>
+              <p><strong>일반 Toon Shading Model</strong>은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color와 AO, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Noise 1·2·3과 MatCap을 저장합니다.</p>
+              <p><strong>Face Shadow용 ToonFace Shading Model</strong>은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Lightmap 1의 RG와 Face Forward XY를 저장합니다.</p>
               <p>얼굴에 그림자가 드리워진 상태에서는 더 짙은 Face Shadow를 표현합니다. Material Parameter로 음영 LUT Index를 선택할 수 있습니다.</p>
-              <p>Face Shadow Lightmap의 G Channel은 빛 반대편에 맺히는 상을 억제하여 음영이 얼굴 절반까지 이동한 뒤 반대편에 빛이 나타나게 합니다. B Channel은 입술과 코의 음영 윤곽을 강조합니다.</p>
-              <p>광택 이미지를 이용한 MatCap을 구현했으며, MatCap의 빛 모양은 Pixel의 Clip Space Position과 Normal에 따라 변합니다.</p>
+              <p>Face Shadow Lightmap의 G Channel은 특정 부위의 빛 세기를 억제하는 역할을 합니다. B Channel은 입술과 코의 음영 윤곽을 강조합니다.</p>
+              <p>광택 이미지를 이용한 MatCap을 구현했으며, MatCap의 광택 모양은 Pixel의 Clip Space Position과 Normal에 따라 변합니다.</p>
             </div>
             <LegacyAssets images={range(34, 45)} title="젠레스 존 제로 스타일 언리얼 엔진 커스텀" />
           </div>
@@ -175,7 +175,7 @@ export default function Home() {
             </div>
           </div>
           <div className="portfolio-item-body">
-            <p className="portfolio-description">Houdini의 노드 기반 작업으로 구조물, 도로, 울타리, 식생 배치와 건물 생성 과정을 구성한 Procedural Modeling 작업입니다.</p>
+            <p className="portfolio-description">Houdini의 노드 기반 작업으로 구조물, 도로, 울타리, 식생 배치와 건물의 Procedural Modeling 과정을 구성했습니다.</p>
             <LegacyAssets images={range(52, 115)} title="Houdini를 이용한 Procedural Modeling" />
           </div>
         </article>
