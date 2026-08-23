@@ -1,4 +1,4 @@
-# Yim Geon Woo — Unreal Engine Portfolio
+# 임건우 포트폴리오
 
 Unreal Engine 플러그인과 엔진 커스텀, DirectX 11 렌더러, Houdini Procedural Modeling 작업을 정리한 개인 포트폴리오입니다.
 

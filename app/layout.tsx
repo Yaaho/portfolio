@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Yim Geon Woo — Unreal Engine Portfolio',
+  title: '임건우 포트폴리오',
   description: 'Unreal Engine rendering and tools programming portfolio.',
   robots: { index: false, follow: false },
 };
