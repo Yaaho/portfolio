@@ -39,7 +39,7 @@ export default function Home() {
               <div className="result-grid">
                 <figure>
                   <img src="/portfolio/images/ground-interaction/ground-result.gif" alt="Ground Interaction 실행 결과" />
-                  <figcaption><strong>Ground Interaction</strong><span>접촉 범위의 버텍스만 부분적으로 변형</span></figcaption>
+                  <figcaption><strong>Ground Interaction</strong><span>인스턴스 피벗 위치를 샘플링해 풀 인스턴스 전체를 같은 방향으로 변형</span></figcaption>
                 </figure>
                 <figure>
                   <img src="/portfolio/images/ground-interaction/water-result.gif" alt="Water Interaction 실행 결과" />
@@ -54,17 +54,18 @@ export default function Home() {
                 <div className="performance-item">
                   <img src="/portfolio/images/ground-interaction/ground-performance.png" alt="Ground Interaction GPU 성능 측정 화면" />
                   <div>
-                    <strong>Ground Interaction</strong>
+                    <h5>Ground Interaction</h5>
                     <p>캐릭터 11명, 캐릭터당 프록시 메시 12개 기준</p>
-                    <dl><div><dt>Depth Capture</dt><dd>0.11ms</dd></div><div><dt>Scrolling · Fade</dt><dd>0.01ms</dd></div></dl>
+                    <p>Depth Capture <strong>0.11ms</strong></p>
+                    <p>Scrolling · Fade <strong>0.01ms</strong></p>
                   </div>
                 </div>
                 <div className="performance-item">
                   <img src="/portfolio/images/ground-interaction/water-performance.png" alt="Water Interaction GPU 성능 측정 화면" />
                   <div>
-                    <strong>Water Interaction</strong>
+                    <h5>Water Interaction</h5>
                     <p>Water Simulation 관련 패스 GPU 비용 총합</p>
-                    <dl><div><dt>GPU Total</dt><dd>0.09ms</dd></div></dl>
+                    <p>GPU Total Cost <strong>0.09ms</strong></p>
                   </div>
                 </div>
               </div>
