@@ -4,11 +4,11 @@ export default function GroundInteractionCaseStudy() {
   return (
     <main>
       <header className="site-nav wrap">
-        <Link className="wordmark" href="/">YGW<span>.</span></Link>
+        <Link className="site-name" href="/">Yim Geon Woo</Link>
         <nav><a href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">Source ↗</a></nav>
       </header>
       <section className="case-header wrap">
-        <Link className="back-link" href="/">← SELECTED WORK</Link>
+        <Link className="back-link" href="/">← PORTFOLIO</Link>
         <h1>Ground<br />Interaction</h1>
         <p className="case-deck">캐릭터와 지면 사이의 접촉 정보를 GPU 파이프라인으로 전달해 foliage 변형과 실시간 수면 반응을 만드는 Unreal Engine 플러그인입니다.</p>
         <dl className="case-meta">
