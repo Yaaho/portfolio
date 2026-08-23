@@ -11,6 +11,7 @@ export default function Home() {
       </header>
 
       <section className="portfolio-intro wrap">
+        <p className="portfolio-employment"><strong>임건우 · / Cinder City 프로그래머 재직중 2025-5-12 ~ 현재</strong></p>
         <p>저의 포트폴리오를 소개하는 페이지입니다.</p>
       </section>
 
