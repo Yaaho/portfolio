@@ -201,7 +201,7 @@ export default function Home() {
             </div>
           </div>
           <div className="portfolio-item-body">
-            <p className="portfolio-description">Houdini의 노드 기반 작업으로 구조물, 도로, 울타리, 식생 배치와 건물의 Procedural Modeling 과정을 구성했습니다.</p>
+            <p className="portfolio-description">Houdini 학습 경험으로 Procedural Generation에 대한 기본적인 이해를 갖추고 있습니다.</p>
             <LegacyAssets images={range(52, 115)} title="Houdini를 이용한 Procedural Modeling" />
           </div>
         </article>
