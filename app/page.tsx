@@ -12,11 +12,7 @@ export default function Home() {
       </header>
 
       <section className="portfolio-intro wrap">
-        <h1>Unreal Engine Programmer</h1>
-        <p>
-          Unreal Engine 렌더링 파이프라인을 분석하고 그래픽 기능과 도구를 구현합니다.
-          이 페이지에는 공개 가능한 작업의 목적, 구현 내용, 소스 저장소를 정리합니다.
-        </p>
+        <p>저의 포트폴리오를 소개하는 페이지입니다.</p>
       </section>
 
       <section className="portfolio-list wrap" id="portfolio">
