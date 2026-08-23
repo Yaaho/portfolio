@@ -6,7 +6,6 @@ export default function Home() {
       <header className="site-nav wrap">
         <Link className="site-name" href="/">Yim Geon Woo</Link>
         <nav aria-label="주요 링크">
-          <a href="#portfolio">Portfolio</a>
           <a href="https://github.com/Yaaho" target="_blank" rel="noreferrer">GitHub ↗</a>
         </nav>
       </header>
