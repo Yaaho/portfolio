@@ -39,11 +39,17 @@ export default function Home() {
               <div className="result-grid">
                 <figure>
                   <img src="/portfolio/images/ground-interaction/ground-result.gif" alt="Ground Interaction 실행 결과" />
-                  <figcaption><strong>Ground Interaction</strong><span>인스턴스 피벗 위치를 샘플링해 풀 인스턴스 전체를 같은 방향으로 변형</span></figcaption>
+                  <figcaption>
+                    <h5>Ground Interaction</h5>
+                    <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다. Niagara Simulation 대신 Depth Capture를 사용했습니다.</p>
+                  </figcaption>
                 </figure>
                 <figure>
                   <img src="/portfolio/images/ground-interaction/water-result.gif" alt="Water Interaction 실행 결과" />
-                  <figcaption><strong>Water Interaction</strong><span>0.1~0.3초 간격의 접촉 입력으로 파장 생성</span></figcaption>
+                  <figcaption>
+                    <h5>Water Interaction</h5>
+                    <p>0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장 생성</p>
+                  </figcaption>
                 </figure>
               </div>
             </section>
@@ -65,7 +71,10 @@ export default function Home() {
                   <div>
                     <h5>Water Interaction</h5>
                     <p>Water Simulation 관련 패스 GPU 비용 총합</p>
-                    <p>GPU Total Cost <strong>0.09ms</strong></p>
+                    <p>Splat <strong>0.04ms</strong></p>
+                    <p>Scrolling <strong>0.04ms</strong></p>
+                    <p>Height Simulation <strong>0.03ms</strong></p>
+                    <p>GPU Total Cost <strong>0.12ms</strong> (평균 0.09ms)</p>
                   </div>
                 </div>
               </div>
