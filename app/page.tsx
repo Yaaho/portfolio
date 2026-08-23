@@ -49,7 +49,7 @@ export default function Home() {
             </div>
 
             <div className="portfolio-links">
-              <Link href="/projects/ground-interaction/">상세 설명 →</Link>
+              <Link href="/projects/ground-interaction/">프로젝트 보기 →</Link>
               <a href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">소스 저장소 ↗</a>
             </div>
           </div>
