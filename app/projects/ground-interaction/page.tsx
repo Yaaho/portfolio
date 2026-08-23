@@ -33,14 +33,6 @@ export default function GroundInteractionCaseStudy() {
 
       <div className="detail-body wrap">
         <section className="detail-section">
-          <h2>개요</h2>
-          <p>캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.</p>
-          <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다.</p>
-          <p>카메라 주변 충돌체가 132개인 환경에서도 Depth Capture 비용은 0.1ms 정도로 좋은 성능을 유지합니다.</p>
-          <p>수면에 닿은 일정 속도 이상의 충돌체가 0.1~0.3초 간격으로 수면과 겹친 면적만큼 파장을 입력합니다.</p>
-        </section>
-
-        <section className="detail-section">
           <h2>기술적 배경</h2>
 
           <h3>갓 오브 워(2018)의 식생 인터렉션 발표</h3>
