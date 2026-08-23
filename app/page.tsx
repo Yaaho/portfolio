@@ -126,7 +126,7 @@ export default function Home() {
             <div className="legacy-copy">
               <h4>볼류매트릭 라이트</h4>
               <p>빛이 공기 중을 진행하며 산란되는 현상을 표현했습니다. View Frustum을 X·Y·Z축의 Voxel 형태로 나누고 각 Voxel 위치의 빛 색상과 Density를 3D Texture에 기록합니다. 각 Voxel에 기록한 값을 Z 방향으로 레이마칭해 누적하고, 그 결과를 다른 3D Texture에 기록하여 해당 위치의 산란광 표현에 사용합니다.</p>
-              <p>Compute Shader에서 Voxel 좌표에 대응하는 World Position을 구합니다. 카메라에 가까운 위치에 더 많은 Voxel이 배치되도록 Voxel의 Z Texture Index가 View Space Z에 대해 지수 분포를 따르게 했고, 지수는 2로 설정했습니다. 프레임마다 다른 Jitter를 적용하여 Voxel의 중심 위치에서 조금 이동한 지점의 빛을 기록합니다.</p>
+              <p>Compute Shader에서 Voxel 좌표에 대응하는 World Position을 구합니다. 카메라에 가까운 위치에 더 많은 Voxel이 배치되도록 Voxel의 Z Texture Index가 View Space Z에 대해 지수 분포를 따르게 했습니다. 프레임마다 다른 Jitter를 적용하여 Voxel의 중심 위치에서 조금 이동한 지점의 빛을 기록합니다.</p>
             </div>
             <LegacyAssets images={range(11, 28).filter((number) => ![11, 16, 20].includes(number))} title="DX11 볼류매트릭 라이트" />
           </div>
@@ -148,16 +148,55 @@ export default function Home() {
             <div className="legacy-copy">
               <h4>원신 스타일 Toon Shading</h4>
               <p>Engine Source를 수정하여 GBuffer 내용을 추가·변경하고 Material Editor Pin과 Shading Model을 추가했습니다. Lightmap Texture를 이용한 재질 표현과 SDF Texture를 이용한 Face Shadow를 구현했습니다.</p>
-              <p><strong>Toon Shading Model</strong>은 GBufferC에 Base Color와 Metal Map, GBufferD에 Shadow Color, GBufferE에 Glossiness·Lightmap·Specular·Ramp Range를 저장합니다.</p>
-              <p><strong>ToonFace Shading Model</strong>은 GBufferB에 Face Forward와 Roughness·Shading Model ID, GBufferC에 Base Color와 원본 Face Shadow Texture, GBufferD에 Shadow Color와 좌우 반전 Face Shadow Texture를 저장하고 GBufferE는 사용하지 않습니다.</p>
-              <p>기존 구현에는 두 가지 문제가 있었습니다. Shadow Color가 GBufferD의 RGB 세 채널을 사용해 공간 효율이 낮았고, 얼굴에 그림자가 드리워졌을 때 음영이 밋밋하게 표현되었습니다.</p>
+              <div className="gbuffer-map">
+                <p className="gbuffer-map-title"><strong>Toon Shading Model</strong></p>
+                <p><strong>GBufferC.RGB:</strong> Base Color</p>
+                <p><strong>GBufferC.A:</strong> Metal Map(CustomData0)</p>
+                <p><strong>GBufferD.RGB:</strong> Shadow Color</p>
+                <p><strong>GBufferE.R:</strong> Glossiness</p>
+                <p><strong>GBufferE.G:</strong> Lightmap</p>
+                <p><strong>GBufferE.B:</strong> Specular</p>
+                <p><strong>GBufferE.A:</strong> Ramp Range</p>
+
+                <p className="gbuffer-map-title"><strong>ToonFace Shading Model</strong></p>
+                <p><strong>GBufferB.RG:</strong> Face Forward</p>
+                <p><strong>GBufferB.B:</strong> Roughness</p>
+                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
+                <p><strong>GBufferC.RGB:</strong> Base Color</p>
+                <p><strong>GBufferC.A:</strong> 원본 Face Shadow Texture(CustomData0)</p>
+                <p><strong>GBufferD.RGB:</strong> Shadow Color</p>
+                <p><strong>GBufferD.A:</strong> 좌우 반전 Face Shadow Texture(CustomData1)</p>
+                <p><strong>GBufferE:</strong> 사용하지 않음</p>
+              </div>
+              <p>첫 번째 구현에는 두 가지 문제가 있었습니다. Shadow Color가 GBufferD의 RGB 세 채널을 사용해 공간 효율이 낮았고, 얼굴에 그림자가 드리워졌을 때 음영이 밋밋하게 표현되었습니다.</p>
             </div>
             <LegacyAssets images={range(29, 33)} title="원신 스타일 언리얼 엔진 커스텀" />
 
             <div className="legacy-copy">
               <h4>젠레스 존 제로 스타일 Toon Shading</h4>
-              <p><strong>일반 Toon Shading Model</strong>은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color와 AO, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Noise 1·2·3과 MatCap을 저장합니다.</p>
-              <p><strong>Face Shadow용 ToonFace Shading Model</strong>은 GBufferB에 N·L Strip, Roughness와 Shading Model ID, GBufferC에 Base Color, GBufferD에 Lightmap 0의 RGBA, GBufferE에 Lightmap 1의 RG와 Face Forward XY를 저장합니다.</p>
+              <div className="gbuffer-map">
+                <p className="gbuffer-map-title"><strong>일반 Toon Shading Model</strong></p>
+                <p><strong>GBufferB.R:</strong> N·L Strip Index(CustomData0)</p>
+                <p><strong>GBufferB.G:</strong> 사용하지 않음</p>
+                <p><strong>GBufferB.B:</strong> Roughness</p>
+                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
+                <p><strong>GBufferC.RGB:</strong> Base Color</p>
+                <p><strong>GBufferC.A:</strong> AO</p>
+                <p><strong>GBufferD.RGBA:</strong> Lightmap 0</p>
+                <p><strong>GBufferE.RGB:</strong> Noise 1·2·3</p>
+                <p><strong>GBufferE.A:</strong> MatCap(CustomData1)</p>
+
+                <p className="gbuffer-map-title"><strong>Face Shadow용 ToonFace Shading Model</strong></p>
+                <p><strong>GBufferB.R:</strong> N·L Strip Index(CustomData0)</p>
+                <p><strong>GBufferB.G:</strong> 사용하지 않음</p>
+                <p><strong>GBufferB.B:</strong> Roughness</p>
+                <p><strong>GBufferB.A:</strong> Shading Model ID</p>
+                <p><strong>GBufferC.RGB:</strong> Base Color</p>
+                <p><strong>GBufferC.A:</strong> 사용하지 않음</p>
+                <p><strong>GBufferD.RGBA:</strong> Lightmap 0</p>
+                <p><strong>GBufferE.RG:</strong> Lightmap 1</p>
+                <p><strong>GBufferE.BA:</strong> Face Forward</p>
+              </div>
               <p>얼굴에 그림자가 드리워진 상태에서는 더 짙은 Face Shadow를 표현합니다. Material Parameter로 음영 LUT Index를 선택할 수 있습니다.</p>
               <p>Face Shadow Lightmap의 G Channel은 특정 부위의 빛 세기를 억제하는 역할을 합니다. B Channel은 입술과 코의 음영 윤곽을 강조합니다.</p>
               <p>광택 이미지를 이용한 MatCap을 구현했으며, MatCap의 광택 모양은 Pixel의 Clip Space Position과 Normal에 따라 변합니다.</p>
