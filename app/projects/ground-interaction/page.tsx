@@ -36,7 +36,7 @@ export default function GroundInteractionCaseStudy() {
           <h2>개요</h2>
           <p>캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.</p>
           <p>God of War 방식의 Dual Depth 폴리지 인터렉션을 구현했습니다.</p>
-          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.09ms 의 좋은 성능을 유지합니다.</p>
+          <p>Niagara Simulation 대신 Depth Capture를 사용해 충돌체 개수가 132개인 상황에서도 캡쳐 비용 0.1ms 의 좋은 성능을 유지합니다.</p>
           <p>Water Interaction은 0.1~0.3초 간격의 수면 접촉면 크기 입력으로 파장을 생성합니다.</p>
         </section>
 
@@ -109,7 +109,7 @@ export default function GroundInteractionCaseStudy() {
           <p>양발과 팔다리 캡쳐용 프록시 메시를 12개씩 가진 캐릭터 11명을 배치하여 GPU 성능을 측정했습니다. 총 충돌체 개수는 132개입니다.</p>
           <p>Depth Capture 전체 비용은 0.11ms, Scrolling과 Fade 등 나머지 패스의 전체 비용은 0.01ms입니다.</p>
           <p>Niagara Simulation Stage 방식으로 폴리지 인터렉션을 구현했을 때는 캐릭터당 충돌체가 하나뿐인 조건에서도 캐릭터가 10명 이상이면 비용이 0.3ms 이상으로 증가했습니다. 이에 비해 Depth Capture 방식은 30배 이상의 성능 향상을 보여줍니다.</p>
-          <p>메인 페이지 작업 결과 기준으로는 Niagara Simulation 대신 Depth Capture를 사용해 충돌체 132개 상황에서도 캡쳐 비용 0.09ms의 좋은 성능을 유지합니다.</p>
+          <p>메인 페이지 작업 결과 기준으로는 Niagara Simulation 대신 Depth Capture를 사용해 충돌체 132개 상황에서도 캡쳐 비용 0.1ms 의 좋은 성능을 유지합니다.</p>
           <div className="detail-media one"><img src={detailImage('image29.png')} alt="Ground Interaction GPU 성능 측정 결과" /></div>
         </section>
 
