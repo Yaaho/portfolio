@@ -45,7 +45,26 @@ a { color:inherit; text-decoration:none; }
 .portfolio-item-heading>span { color:#5d747d; font:10px/1.5 monospace; }
 .portfolio-item-heading p { margin:0 0 10px; color:#9bafb6; font-size:14px; line-height:1.5; }
 .portfolio-item-heading h3 { margin:0; font-size:26px; line-height:1.15; letter-spacing:-.035em; }
+.portfolio-cover { display:block; width:100%; margin:0 0 24px; }
 .portfolio-description { margin:0 0 34px; color:#b5c5ca; font-size:15px; word-break:keep-all; }
+.portfolio-results>h4,
+.portfolio-performance>h4 { margin:0 0 14px; color:#cad7da; font-size:16px; }
+.result-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:42px; }
+.result-grid figure { margin:0; }
+.result-grid img { display:block; width:100%; aspect-ratio:1.2/1; object-fit:cover; background:#03080b; }
+.result-grid figcaption { display:grid; gap:4px; padding-top:10px; }
+.result-grid figcaption strong { font-size:13px; }
+.result-grid figcaption span { color:#82969d; font-size:11px; line-height:1.5; }
+.performance-list { display:grid; gap:18px; }
+.performance-item { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(190px,.85fr); gap:20px; align-items:center; padding:18px 0; border-top:1px solid var(--line); }
+.performance-item:last-child { border-bottom:1px solid var(--line); }
+.performance-item>img { display:block; width:100%; }
+.performance-item strong { font-size:13px; }
+.performance-item p { margin:7px 0 12px; color:#82969d; font-size:11px; line-height:1.5; }
+.performance-item dl { margin:0; }
+.performance-item dl>div { display:flex; justify-content:space-between; gap:18px; padding:6px 0; border-top:1px solid rgba(177,218,224,.1); }
+.performance-item dt { color:#8fa2a9; font-size:10px; }
+.performance-item dd { margin:0; color:var(--cyan); font:700 12px/1.5 monospace; }
 .portfolio-points { border-top:1px solid var(--line); }
 .portfolio-points>div { display:grid; grid-template-columns:160px minmax(0,1fr); gap:24px; padding:17px 0; border-bottom:1px solid var(--line); }
 .portfolio-points h4 { margin:0; color:#cad7da; font:10px/1.5 monospace; }
@@ -73,6 +92,16 @@ a { color:inherit; text-decoration:none; }
 .case-credit { margin:14px 0 0; color:#7f949c; font-size:11px; word-break:keep-all; }
 .case-hero-image { margin:0; min-width:0; }
 .case-hero-image img { display:block; width:100%; aspect-ratio:1.88/1; object-fit:cover; }
+.implementation-body { padding:74px 0 110px; }
+.implementation-section { display:grid; grid-template-columns:210px minmax(0,1fr); gap:54px; padding:54px 0; border-top:1px solid var(--line); }
+.implementation-section:first-child { padding-top:0; border-top:0; }
+.implementation-section h2 { margin:0; font-size:20px; line-height:1.35; }
+.implementation-content h3 { margin:44px 0 12px; font-size:18px; }
+.implementation-content h3:first-child { margin-top:0; }
+.implementation-content p { margin:0 0 18px; color:#9bafb6; font-size:14px; word-break:keep-all; }
+.implementation-content pre { margin:0; padding:20px; overflow-x:auto; border:1px solid var(--line); background:#040a0e; color:#c5d7db; font:12px/1.65 Consolas,monospace; }
+.source-file { display:inline-block; margin-top:10px; color:var(--cyan); font:700 10px/1.5 monospace; }
+.implementation-source { padding-top:36px; border-top:1px solid var(--line); }
 .case-body { padding:82px 0 110px; }
 .case-section { display:grid; grid-template-columns:190px minmax(0,1fr); gap:58px; padding:66px 0; border-bottom:1px solid var(--line); }
 .case-section:first-child { padding-top:0; }
@@ -97,7 +126,9 @@ a { color:inherit; text-decoration:none; }
 @media (max-width:760px) {
   .portfolio-item { grid-template-columns:1fr; gap:30px; }
   .portfolio-points>div { grid-template-columns:1fr; gap:7px; }
+  .performance-item { grid-template-columns:1fr; }
   .case-hero { grid-template-columns:1fr; gap:34px; }
+  .implementation-section { grid-template-columns:1fr; gap:24px; }
   .case-section { grid-template-columns:1fr; gap:26px; }
   .case-section h2 { position:static; }
   .flow { grid-template-columns:1fr 1fr; }
@@ -111,11 +142,15 @@ a { color:inherit; text-decoration:none; }
   .portfolio-intro { padding:48px 0 44px; }
   .portfolio-list { padding:46px 0 70px; }
   .portfolio-item { padding:30px 0 36px; }
+  .result-grid { grid-template-columns:1fr; }
   .portfolio-links { flex-direction:column; gap:16px; }
   .case-header { padding:44px 0 58px; }
   .case-hero.wrap { width:min(100% - 30px,1180px); }
   .case-header h1 { font-size:clamp(31px,9.5vw,42px); }
   .case-body { padding-top:52px; }
+  .implementation-body { padding:52px 0 76px; }
+  .implementation-section { padding:42px 0; }
+  .implementation-content pre { padding:16px; font-size:11px; }
   .case-section { padding:52px 0; }
   .tech-diagram { padding:18px 12px; overflow-x:auto; }
   .buffer-flow { min-width:440px; justify-content:start; }
