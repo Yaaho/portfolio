@@ -99,8 +99,8 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>성능</h3>
           <p>양발과 팔다리 캡쳐용 프록시 메시를 12개씩 가진 캐릭터 11명을 배치하여 GPU 성능을 측정했습니다. 총 충돌체 개수는 132개입니다.</p>
-          <p>Depth Capture 전체 비용은 0.11ms, Scrolling과 Fade 등 나머지 패스의 전체 비용은 0.01ms입니다.</p>
-          <p>Niagara Simulation Stage 방식으로 폴리지 인터렉션을 구현했을 때는 캐릭터당 충돌체가 하나뿐인 조건에서도 캐릭터가 10명 이상이면 비용이 0.3ms 이상으로 증가했습니다. 이에 비해 Depth Capture 방식은 30배 이상의 성능 향상을 보여줍니다.</p>
+          <p>Depth Capture 전체 비용은 <strong className="metric-value">0.11ms</strong>, Scrolling과 Fade 등 나머지 패스의 전체 비용은 <strong className="metric-value">0.01ms</strong>입니다.</p>
+          <p>Niagara Simulation Stage 방식으로 폴리지 인터렉션을 구현했을 때는 캐릭터당 충돌체가 하나뿐인 조건에서도 캐릭터가 10명 이상이면 비용이 <strong className="metric-value">0.3ms</strong> 이상으로 증가했습니다. 이에 비해 Depth Capture 방식은 30배 이상의 성능 향상을 보여줍니다.</p>
           <div className="detail-media one"><img src={detailImage('image29.png')} alt="Ground Interaction GPU 성능 측정 결과" /></div>
         </section>
 
@@ -142,8 +142,8 @@ export default function GroundInteractionCaseStudy() {
           <div className="detail-media one"><img src={detailImage('image45.gif')} alt="Water Interaction 입력 주기 0 결과" /></div>
 
           <h3>성능</h3>
-          <p>Water Simulation 관련 패스의 GPU 비용은 Splat 0.04ms, Scrolling 0.04ms, Height Simulation 0.03ms입니다.</p>
-          <p>GPU Total Cost는 0.11ms이며 평균은 0.09ms입니다.</p>
+          <p>Water Simulation 관련 패스의 GPU 비용은 Splat <strong className="metric-value">0.04ms</strong>, Scrolling <strong className="metric-value">0.04ms</strong>, Height Simulation <strong className="metric-value">0.03ms</strong>입니다.</p>
+          <p>GPU Total Cost는 <strong className="metric-value">0.11ms</strong>이며 평균은 <strong className="metric-value">0.09ms</strong>입니다.</p>
           <div className="detail-media one"><img src={detailImage('image46.png')} alt="Water Interaction GPU 성능 측정 결과" /></div>
         </section>
 

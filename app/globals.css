@@ -66,10 +66,25 @@ a { color:inherit; text-decoration:none; }
 .portfolio-points>div { display:grid; grid-template-columns:160px minmax(0,1fr); gap:24px; padding:17px 0; border-bottom:1px solid var(--line); }
 .portfolio-points h4 { margin:0; color:#cad7da; font:10px/1.5 monospace; }
 .portfolio-points p { margin:0; color:#82969d; font-size:12px; word-break:keep-all; }
-.portfolio-links { display:flex; gap:28px; margin-top:30px; font:700 11px/1 monospace; }
-.portfolio-links a:first-child { color:var(--cyan); }
-.portfolio-links a:last-child { color:var(--muted); }
-.portfolio-links a:hover { color:var(--text); }
+.portfolio-links { display:flex; align-items:center; gap:22px; margin:0 0 42px; }
+.portfolio-detail-link {
+  min-height:46px;
+  padding:0 18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--cyan);
+  background:var(--cyan-soft);
+  color:var(--text);
+  font-size:14px;
+  font-weight:700;
+  line-height:1;
+  transition:background-color .16s ease,color .16s ease;
+}
+.portfolio-detail-link:hover { background:var(--cyan); color:#031316; }
+.portfolio-detail-link:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+.portfolio-source-link { color:var(--muted); font:700 11px/1 monospace; }
+.portfolio-source-link:hover { color:var(--text); }
 .repository-link { display:inline-block; margin:-8px 0 28px; color:var(--cyan); font-size:17px; font-weight:700; text-decoration:underline; text-underline-offset:4px; }
 .legacy-copy { margin:0 0 18px; }
 .legacy-copy h4 { margin:38px 0 12px; font-size:20px; }
@@ -108,6 +123,7 @@ a { color:inherit; text-decoration:none; }
 .detail-section h3 { margin:42px 0 10px; font-size:18px; }
 .detail-section p { max-width:760px; margin:0 0 14px; color:#9bafb6; font-size:14px; word-break:keep-all; }
 .detail-section p a { color:var(--cyan); text-decoration:underline; text-underline-offset:3px; }
+.detail-section .metric-value { color:var(--text); font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .nowrap { white-space:nowrap; }
 .detail-media { margin:14px 0 30px; }
 .detail-media.one { display:grid; grid-template-columns:1fr; }
@@ -160,6 +176,7 @@ a { color:inherit; text-decoration:none; }
   .result-grid { grid-template-columns:1fr; }
   .legacy-assets { columns:1; }
   .portfolio-links { flex-direction:column; gap:16px; }
+  .portfolio-detail-link { width:100%; }
   .case-header { padding:44px 0 58px; }
   .case-hero.wrap { width:min(100% - 30px,1180px); }
   .case-header h1 { font-size:clamp(31px,9.5vw,42px); }

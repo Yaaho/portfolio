@@ -51,6 +51,11 @@ export default function Home() {
               캐릭터와 지면의 접촉 정보를 이용해 폴리지 변형과 실시간 수면 반응을 구현한 Unreal Engine 플러그인입니다.
             </p>
 
+            <div className="portfolio-links">
+              <Link className="portfolio-detail-link" href="/projects/ground-interaction/">Ground Interaction 구현 상세 보기 →</Link>
+              <a className="portfolio-source-link" href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">소스 저장소 ↗</a>
+            </div>
+
             <section className="portfolio-results" aria-labelledby="results-title">
               <h4 id="results-title">작업 결과</h4>
               <div className="result-grid">
@@ -97,10 +102,6 @@ export default function Home() {
               </div>
             </section>
 
-            <div className="portfolio-links">
-              <Link href="/projects/ground-interaction/">구현 상세 보기 →</Link>
-              <a href="https://github.com/Yaaho/Unreal-GroundInteraction" target="_blank" rel="noreferrer">소스 저장소 ↗</a>
-            </div>
           </div>
         </article>
 
