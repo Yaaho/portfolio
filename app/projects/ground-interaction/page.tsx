@@ -46,7 +46,7 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>Niagara Simulation Stage의 다중 캐릭터 환경 성능</h3>
           <p>Simulation Stage에 충돌체 배열을 전달하고, 배열의 각 원소를 순회하며 일정 속도 이상의 충돌체 깊이 정보를 Grid2D에 기록하는 방식입니다.</p>
-          <p>Grid2D의 모든 셀에서 배열 전체를 반복 검사하므로 충돌체 수가 증가할수록 연산량이 선형적으로 증가합니다. 연산 복잡도는 <span className="nowrap">O(C × N²)</span>이며, C는 충돌체 개수, N은 Grid2D 해상도입니다.</p>
+          <p>Grid2D가 N×N 해상도이고 각 셀이 C개의 충돌체를 모두 검사하므로 연산 복잡도는 <span className="nowrap">O(C × N²)</span>입니다.</p>
           <div className="detail-media two"><img src={detailImage('image4.png')} alt="충돌체 배열" /><img src={detailImage('image5.png')} alt="Grid2D 반복 구조" /></div>
 
           <h3>성능 개선 방안 — Bottom-up Depth Capture</h3>
