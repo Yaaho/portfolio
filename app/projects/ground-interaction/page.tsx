@@ -35,7 +35,7 @@ export default function GroundInteractionCaseStudy() {
         <section className="detail-section">
           <h2>기술적 배경</h2>
 
-          <h3>갓 오브 워(2018)의 식생 인터렉션 발표</h3>
+          <h3>"갓 오브 워"(2018)의 식생 인터렉션 발표</h3>
           <p>렌더 타겟의 한 채널에 콜리전의 Depth를 기록하고, 나머지 채널에서 시간에 따라 해당 Depth 값을 Z 방향으로 Fade하여 값의 변화로 폴리지의 흔들림을 구현했다는 아이디어입니다.</p>
           <div className="detail-media one"><img src={detailImage('image2.png')} alt="갓 오브 워 식생 인터렉션 발표 자료" /></div>
 
@@ -83,7 +83,7 @@ export default function GroundInteractionCaseStudy() {
 
           <h3>머티리얼</h3>
           <p>플러그인의 Material Function에서 Position Offset을 반환하도록 만들었습니다. 풀의 뿌리 부분에서 흔들림의 세기가 약해지는 기능은 흔히 사용하는 Vertex Color 방식 대신 Pixel World Position과 Instance Bound를 사용했습니다. Vertex Color를 사용하도록 대응할 수도 있습니다.</p>
-          <p>Depth Render Target을 샘플링하는 위치는 Pixel World Position과 풀 인스턴스 중심 위치를 모두 사용할 수 있습니다. 갓 오브 워의 풀은 전체적으로 흔들리는 것으로 보아 인스턴스 위치의 UV 한 곳만 샘플링하거나, 에셋 제작 과정에서 Texture나 Vertex에 기록한 Pivot 위치만 샘플링하는 것으로 추정했습니다.</p>
+          <p>Depth Render Target을 샘플링하는 위치는 Pixel World Position과 풀 인스턴스 중심 위치를 모두 사용할 수 있습니다. "갓 오브 워"의 풀은 전체적으로 흔들리는 것으로 보아 인스턴스 위치의 UV 한 곳만 샘플링하거나, 에셋 제작 과정에서 Texture나 Vertex에 기록한 Pivot 위치만 샘플링하는 것으로 추정했습니다.</p>
           <p>Material에서는 플러그인의 MF에서 반환된 World Position Offset 값을 더합니다.</p>
           <div className="detail-media two"><img src={detailImage('image23.png')} alt="Ground Interaction Material Function" /><img src={detailImage('image24.png')} alt="Ground Interaction Material" /></div>
 
